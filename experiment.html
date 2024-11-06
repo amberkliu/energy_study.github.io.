@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My experiment</title>
+    <script src="https://unpkg.com/jspsych@8.0.3"></script>
+    <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css" />
+    <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@2.0.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-slider-response@2.0.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-preload@2.0.0"></script>
+    <link href="https://unpkg.com/jspsych@8.0.3/css/jspsych.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="slider.css">
+  </head>
+  <body></body>
+  <script>
+    const jsPsych = initJsPsych(override_safe_mode=true);
+
+var timeline = [];
+
+/* preload images */
+var preload = {
+      type: jsPsychPreload,
+      images: ['img/full_bar.png']
+    };
+    timeline.push(preload);
+
+var s1t1 = {
+          type: jsPsychHtmlSliderResponse,
+    stimulus: `<div>
+        <p>This is how Adam’s energy looks like now.</p>
+        </div>
+        <img src="img/half_bar.png" width="400" height="50" ></img>
+        <p>Adam goes off to run a race for an hour. How do you think his energy would change?</p>
+        </div>`,
+    require_movement: true,
+    slider_start:50,
+    slider_width: 500,
+    labels: ['Really tired','Not tired at all']
+      }
+      timeline.push(s1t1);
+var s1t2 = {
+          type: jsPsychHtmlSliderResponse,
+    stimulus: `<div>
+        <p>This is how Bob's energy looks like now.</p>
+        </div>
+        <img src="img/half_bar.png" width="400" height="50" ></img>
+        <p>Bob goes off to do his homework for an hour. How do you think his energy would change?</p>
+        </div>`,
+    require_movement: true,
+    slider_start:50,
+    slider_width: 500,
+    labels: ['Really tired','Not tired at all']
+      }
+      timeline.push(s1t2);
+var s1t3 = {
+          type: jsPsychHtmlSliderResponse,
+    stimulus: `<div>
+        <p>This is how Cathy's energy looks like now.</p>
+        </div>
+        <img src="img/half_bar.png" width="400" height="50" ></img>
+        <p>Cathy goes off to take a nap for an hour. How do you think his energy would change?</p>
+        </div>`,
+    require_movement: true,
+    slider_start:50,
+    slider_width: 500,
+    labels: ['Really tired','Not tired at all']
+      }
+      timeline.push(s1t3);
+var s2t1 = {
+          type: jsPsychHtmlSliderResponse,
+    stimulus: `<div>
+        <p>Sally has been sitting quietly and drawing all morning. Her energy now looks like this.</p>
+        </div>
+        <img src="img/full_bar.png" width="400" height="50" ></img>
+        <p>She is going to take a swimming lesson in the afternoon. How <b>hard</b> do you think that would be for Sally?</p>
+        </div>`,
+    require_movement: true,
+    slider_start:0,
+    slider_width: 500,
+    labels: ['Not hard at all', 'Extremely hard']
+      }
+      timeline.push(s2t1);
+var s2t2 = {
+          type: jsPsychHtmlSliderResponse,
+    stimulus: `<div>
+        <p>Sally has been practicing math problems all morning and her energy now looks like this.</p>
+        </div>
+        <img src="img/half_bar.png" width="400" height="50" ></img>
+        <p>She is going to take a swimming lesson in the afternoon. How <b>hard</b> do you think that would be for Sally?</p>
+        </div>`,
+    require_movement: true,
+    slider_start:0,
+    slider_width: 500,
+    labels: ['Not hard at all', 'Extremely hard']
+        }
+      timeline.push(s2t2);
+var s3t1 = {
+          type: jsPsychHtmlSliderResponse,
+    stimulus: `<div style="text-align: center; width:800px;">
+        <p>  Sally has a race to run this afternoon. Sally thought, "Wow, that is going to be so hard for me!". What do you think her energy bar looks like right now?</p>
+        </div>`,
+    require_movement: true,
+    slider_start:0,
+    slider_width: 500,
+    labels: ['Really tired','Not tired at all']
+      }
+      timeline.push(s3t1);
+var s3t2 = {
+          type: jsPsychHtmlSliderResponse,
+    stimulus: `<div style="text-align: center; width:800px;">
+        <p class="centered" >Sally needs to practice math problems this afternoon. Sally thought, "Wow, that is going to be so easy for me!". What do you think her energy bar looks like right now?</p>
+        </div>`,
+    require_movement: true,
+    slider_start:0,
+    slider_width: 500,
+
+    labels: ['Really tired','Not tired at all']
+        }
+      timeline.push(s3t2);
+
+jsPsych.run(timeline);
+
+  </script>
+</html>
