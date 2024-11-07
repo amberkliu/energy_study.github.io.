@@ -12,7 +12,9 @@
   </head>
   <body></body>
   <script>
-    const jsPsych = initJsPsych(override_safe_mode=true);
+    const jsPsych = initJsPsych({
+    override_safe_mode: true
+});
 
 var timeline = [];
 
@@ -34,7 +36,8 @@ var s1t1 = {
     require_movement: true,
     slider_start:50,
     slider_width: 500,
-    labels: ['Really tired','Not tired at all']
+    labels: ['Really tired','Not tired at all'],
+    css_classes: ['energy-slider']
       }
       timeline.push(s1t1);
 var s1t2 = {
@@ -48,7 +51,8 @@ var s1t2 = {
     require_movement: true,
     slider_start:50,
     slider_width: 500,
-    labels: ['Really tired','Not tired at all']
+    labels: ['Really tired','Not tired at all'],
+    css_classes: ['energy-slider']
       }
       timeline.push(s1t2);
 var s1t3 = {
@@ -62,7 +66,8 @@ var s1t3 = {
     require_movement: true,
     slider_start:50,
     slider_width: 500,
-    labels: ['Really tired','Not tired at all']
+    labels: ['Really tired','Not tired at all'],
+    css_classes: ['energy-slider']
       }
       timeline.push(s1t3);
 var s2t1 = {
@@ -76,7 +81,8 @@ var s2t1 = {
     require_movement: true,
     slider_start:0,
     slider_width: 500,
-    labels: ['Not hard at all', 'Extremely hard']
+    labels: ['Not hard at all', 'Extremely hard'],
+    css_classes: ['original-slider']
       }
       timeline.push(s2t1);
 var s2t2 = {
@@ -90,7 +96,8 @@ var s2t2 = {
     require_movement: true,
     slider_start:0,
     slider_width: 500,
-    labels: ['Not hard at all', 'Extremely hard']
+    labels: ['Not hard at all', 'Extremely hard'],
+    css_classes: ['original-slider']
         }
       timeline.push(s2t2);
 var s3t1 = {
@@ -101,7 +108,9 @@ var s3t1 = {
     require_movement: true,
     slider_start:0,
     slider_width: 500,
-    labels: ['Really tired','Not tired at all']
+    labels: ['Really tired','Not tired at all'],
+    css_classes: ['energy-slider']
+
       }
       timeline.push(s3t1);
 var s3t2 = {
@@ -112,8 +121,8 @@ var s3t2 = {
     require_movement: true,
     slider_start:0,
     slider_width: 500,
-
-    labels: ['Really tired','Not tired at all']
+    labels: ['Really tired','Not tired at all'],
+    css_classes: ['energy-slider']
         }
       timeline.push(s3t2);
 

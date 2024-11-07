@@ -1,9 +1,9 @@
-input[type="range"] {
+.energy-slider input[type="range"] {
     /* removing default appearance */
     -webkit-appearance: none;
     appearance: none; 
     /* creating a custom design */
-    width: 80%;
+    width: 100%;
     cursor: pointer;
     outline: none;
     /*  slider progress trick  */
@@ -12,28 +12,28 @@ input[type="range"] {
   }
   
   /* Track: webkit browsers */
-  input[type="range"]::-webkit-slider-runnable-track {
-    height: 15px;
-    background: #ccc;
+  .energy-slider input[type="range"]::-webkit-slider-runnable-track {
+    height: 30px;
+    background: #ffffff;
     /*border-radius: 16px;*/
   }
   
   /* Track: Mozilla Firefox */
-  input[type="range"]::-moz-range-track {
+  .energy-slider input[type="range"]::-moz-range-track {
     height: 15px;
-    background: #ccc;
+    background: #ffffff;
     border-radius: 16px;
   }
   
   /* Thumb: webkit */
-  input[type="range"]::-webkit-slider-thumb {
+  .energy-slider input[type="range"]::-webkit-slider-thumb {
     /* removing default appearance */
     -webkit-appearance: none;
     appearance: none; 
     /* creating a custom design */
-    height: 30px;
+    height: 40px;
     width: 10px;
-    background-color: #010101;
+    background-color: #010101a9;
     border: none;
     /*  slider progress trick  */
     box-shadow: -407px 0 0 400px #6b5;
@@ -41,7 +41,7 @@ input[type="range"] {
   
   
   /* Thumb: Firefox */
-  input[type="range"]::-moz-range-thumb {
+  .energy-slider input[type="range"]::-moz-range-thumb {
     height: 15px;
     width: 15px;
     background-color: #fff;
@@ -50,8 +50,14 @@ input[type="range"] {
     /*  slider progress trick  */
     box-shadow: -407px 0 0 400px #6b5;
   }
-  
-  
+
+
+  .original-slider input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none; 
+  }
+
+
   /*=============
   Aesthetics 
   =========================*/
