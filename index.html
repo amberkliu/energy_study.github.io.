@@ -7,6 +7,7 @@
     <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@2.0.0"></script>
     <script src="https://unpkg.com/@jspsych/plugin-html-slider-response@2.0.0"></script>
     <script src="https://unpkg.com/@jspsych/plugin-preload@2.0.0"></script>
+    <script src="jspsych/plugin-html-button-response.js"></script>
     <link href="https://unpkg.com/jspsych@8.0.3/css/jspsych.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="slider.css">
   </head>
@@ -21,19 +22,69 @@ var timeline = [];
 /* preload images */
 var preload = {
       type: jsPsychPreload,
-      images: ['img/full_bar.png']
+      images: ['img/full_bar.png','img/empty_bar.png','img/half_bar.png','img/jump.png','img/sit.png']
     };
     timeline.push(preload);
+
+var intro = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus: `<div>
+        <p>This is an energy bar. When someone is not tired at all, it looks like this: <p>
+        </div>
+        <img src="img/full_bar.png" width="400" height="50" ></img>
+        <p>And When someone is really tired, it looks like this:</p>
+      </div>
+        <img src="img/empty_bar.png" width="400" height="50" ></img>
+        <p> Some things make us tired. Other things make us less tired. Let’s think about them together! <p>
+        </div>`,
+  choices: ['Continue']
+}
+timeline.push(intro);
+
+var check = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus: '<p>When someone is really really tired, how would their energy bar most likely look like?</p>',
+    choices: ['img/empty_bar.png', 'img/half_bar.png', 'img/full_bar.png'],
+    /*button_html: '<img src="%choice%" style="width:100px; padding: 20px;"></img>'*/
+    button_html: function(choice) {
+    return '<button class="jspsych-btn"><img src="' + choice + '" alt="choice" style="width:300px; padding: 20px;"></button>';
+  },
+  on_finish: function(data) {
+    console.log('Selected button:', data.button_pressed);
+  }
+};
+timeline.push(check);
+
+var check2 = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus: '<p>When someone is not tired at all, how would their energy bar most likely look like?</p>',
+    choices: ['img/empty_bar.png', 'img/half_bar.png', 'img/full_bar.png'],
+    /*button_html: '<img src="%choice%" style="width:100px; padding: 20px;"></img>'*/
+    button_html: function(choice) {
+    return '<button class="jspsych-btn"><img src="' + choice + '" alt="choice" style="width:300px; padding: 20px;"></button>';
+  },
+  on_finish: function(data) {
+    console.log('Selected button:', data.button_pressed);
+  }
+};
+timeline.push(check2);
 
 var s1t1 = {
           type: jsPsychHtmlSliderResponse,
     stimulus: `<div>
-        <p>This is how Adam’s energy looks like now.</p>
+        <p>This is what Adam’s energy bar looks like now.</p>
         </div>
         <img src="img/half_bar.png" width="400" height="50" ></img>
-        <p>Adam goes off to run a race for an hour. How do you think his energy would change?</p>
-        </div>`,
+        <p>Adam then goes off to run a race for an hour. How do you think his energy would change after running the race?</p>
+        <img src="img/boy_running.png" width="200" height="200"></img>`,
     require_movement: true,
+    prompt: `
+        <div style="width:400px; float: left;">
+          <img src="img/sit.png" width="50" height="50"></img>
+        </div>
+        <div style="width:400px; float: right;">
+          <img src="img/jump.png" width="50" height="50"></img>
+        </div>`,
     slider_start:50,
     slider_width: 500,
     labels: ['Really tired','Not tired at all'],
@@ -73,10 +124,10 @@ var s1t3 = {
 var s2t1 = {
           type: jsPsychHtmlSliderResponse,
     stimulus: `<div>
-        <p>Sally has been sitting quietly and drawing all morning. Her energy now looks like this.</p>
+        <p>Cathy has been sitting quietly and drawing all morning. Her energy now looks like this.</p>
         </div>
         <img src="img/full_bar.png" width="400" height="50" ></img>
-        <p>She is going to take a swimming lesson in the afternoon. How <b>hard</b> do you think that would be for Sally?</p>
+        <p>She is going to take a swimming lesson in the afternoon. How <b>hard</b> do you think that would be for Cathy?</p>
         </div>`,
     require_movement: true,
     slider_start:0,
@@ -88,10 +139,10 @@ var s2t1 = {
 var s2t2 = {
           type: jsPsychHtmlSliderResponse,
     stimulus: `<div>
-        <p>Sally has been practicing math problems all morning and her energy now looks like this.</p>
+        <p>Cathy has been practicing math problems all morning and her energy now looks like this.</p>
         </div>
         <img src="img/half_bar.png" width="400" height="50" ></img>
-        <p>She is going to take a swimming lesson in the afternoon. How <b>hard</b> do you think that would be for Sally?</p>
+        <p>She is going to take a swimming lesson in the afternoon. How <b>hard</b> do you think that would be for Cathy?</p>
         </div>`,
     require_movement: true,
     slider_start:0,
@@ -103,7 +154,7 @@ var s2t2 = {
 var s3t1 = {
           type: jsPsychHtmlSliderResponse,
     stimulus: `<div style="text-align: center; width:800px;">
-        <p>  Sally has a race to run this afternoon. Sally thought, "Wow, that is going to be so hard for me!". What do you think her energy bar looks like right now?</p>
+        <p>  Cathy has a race to run this afternoon. Cathy thought, "Wow, that is going to be so hard for me!". What do you think her energy bar looks like right now?</p>
         </div>`,
     require_movement: true,
     slider_start:0,
@@ -116,7 +167,8 @@ var s3t1 = {
 var s3t2 = {
           type: jsPsychHtmlSliderResponse,
     stimulus: `<div style="text-align: center; width:800px;">
-        <p class="centered" >Sally needs to practice math problems this afternoon. Sally thought, "Wow, that is going to be so easy for me!". What do you think her energy bar looks like right now?</p>
+        <p class="centered" >Cathy needs to practice math problems this afternoon. Cathy thought, "Wow, that is going to be so easy for me!".</p>
+        <p class="centered" >What do you think her energy bar looks like right now?</p>
         </div>`,
     require_movement: true,
     slider_start:0,
