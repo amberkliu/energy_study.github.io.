@@ -48,9 +48,6 @@ var check = {
     /*button_html: '<img src="%choice%" style="width:100px; padding: 20px;"></img>'*/
     button_html: function(choice) {
     return '<button class="jspsych-btn"><img src="' + choice + '" alt="choice" style="width:300px; padding: 20px;"></button>';
-  },
-  on_finish: function(data) {
-    console.log('Selected button:', data.button_pressed);
   }
 };
 timeline.push(check);
@@ -62,9 +59,6 @@ var check2 = {
     /*button_html: '<img src="%choice%" style="width:100px; padding: 20px;"></img>'*/
     button_html: function(choice) {
     return '<button class="jspsych-btn"><img src="' + choice + '" alt="choice" style="width:300px; padding: 20px;"></button>';
-  },
-  on_finish: function(data) {
-    console.log('Selected button:', data.button_pressed);
   }
 };
 timeline.push(check2);
