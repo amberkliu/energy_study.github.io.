@@ -46,9 +46,7 @@ var check = {
   stimulus: '<p>When someone is really really tired, how would their energy bar most likely look like?</p>',
     choices: ['img/empty_bar.png', 'img/half_bar.png', 'img/full_bar.png'],
     /*button_html: '<img src="%choice%" style="width:100px; padding: 20px;"></img>'*/
-    button_html: function(choice) {
-    return '<button class="jspsych-btn"><img src="' + choice + '" alt="choice" style="width:300px; padding: 20px;"></button>';
-  }
+    button_html: (choice) => `<img src=${choice} style="width:300px; padding: 20px;cursor: pointer;"></img>`
 };
 timeline.push(check);
 
@@ -56,10 +54,10 @@ var check2 = {
   type: jsPsychHtmlButtonResponse,
   stimulus: '<p>When someone is not tired at all, how would their energy bar most likely look like?</p>',
     choices: ['img/empty_bar.png', 'img/half_bar.png', 'img/full_bar.png'],
-    /*button_html: '<img src="%choice%" style="width:100px; padding: 20px;"></img>'*/
-    button_html: function(choice) {
+    /*button_html: function(choice) {
     return '<button class="jspsych-btn"><img src="' + choice + '" alt="choice" style="width:300px; padding: 20px;"></button>';
-  }
+  }*/
+  button_html: (choice) => `<img src=${choice} style="width:300px; padding: 20px;cursor: pointer;"></img>`
 };
 timeline.push(check2);
 
