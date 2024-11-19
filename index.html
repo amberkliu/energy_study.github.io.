@@ -7,7 +7,7 @@
     <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@2.0.0"></script>
     <script src="https://unpkg.com/@jspsych/plugin-html-slider-response@2.0.0"></script>
     <script src="https://unpkg.com/@jspsych/plugin-preload@2.0.0"></script>
-    <script src="jspsych/plugin-html-button-response.js"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-button-response@2.0.0"></script>
     <link href="https://unpkg.com/jspsych@8.0.3/css/jspsych.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="slider.css">
   </head>
@@ -61,22 +61,26 @@ var check2 = {
 };
 timeline.push(check2);
 
+
 var s1t1 = {
           type: jsPsychHtmlSliderResponse,
+   /* prompt: `
+        <div class="image1">
+          <img src="img/sit.png" width="50" height="50"></img>
+        </div> 
+        <div style="width:400px; float: right;">
+          <img src="img/jump.png" width="50" height="50"></img>
+        </div>`,*/
     stimulus: `<div>
         <p>This is what Adam’s energy bar looks like now.</p>
         </div>
-        <img src="img/half_bar.png" width="400" height="50" ></img>
-        <p>Adam then goes off to run a race for an hour. How do you think his energy would change after running the race?</p>
-        <img src="img/boy_running.png" width="200" height="200"></img>`,
+        <img src="img/half_bar.png" width="520" height="45" ></img>
+        <p>Adam then goes off to run a race for an hour. What do you think his energy bar will look like after that?</p>
+      <div>
+        <img src="img/boy_running.png" width="200" height="200"></img> 
+      </div>
+        <img src="img/anchoring_pic.png" width="500" height="60"></img>`,
     require_movement: true,
-    prompt: `
-        <div style="width:400px; float: left;">
-          <img src="img/sit.png" width="50" height="50"></img>
-        </div>
-        <div style="width:400px; float: right;">
-          <img src="img/jump.png" width="50" height="50"></img>
-        </div>`,
     slider_start:50,
     slider_width: 500,
     labels: ['Really tired','Not tired at all'],
@@ -88,8 +92,8 @@ var s1t2 = {
     stimulus: `<div>
         <p>This is how Bob's energy looks like now.</p>
         </div>
-        <img src="img/half_bar.png" width="400" height="50" ></img>
-        <p>Bob goes off to do his homework for an hour. How do you think his energy would change?</p>
+        <img src="img/half_bar.png" width="520" height="45" ></img>
+        <p>Bob goes off to do his homework for an hour. What do you think his energy bar will look like after that?</p>
         </div>`,
     require_movement: true,
     slider_start:50,
@@ -103,8 +107,8 @@ var s1t3 = {
     stimulus: `<div>
         <p>This is how Cathy's energy looks like now.</p>
         </div>
-        <img src="img/half_bar.png" width="400" height="50" ></img>
-        <p>Cathy goes off to take a nap for an hour. How do you think his energy would change?</p>
+        <img src="img/half_bar.png" width="520" height="45" ></img>
+        <p>Cathy goes off to take a nap for an hour. What do you think her energy bar will look like after that?</p>
         </div>`,
     require_movement: true,
     slider_start:50,
@@ -118,7 +122,7 @@ var s2t1 = {
     stimulus: `<div>
         <p>Cathy has been sitting quietly and drawing all morning. Her energy now looks like this.</p>
         </div>
-        <img src="img/full_bar.png" width="400" height="50" ></img>
+        <img src="img/full_bar.png" width="520" height="45" ></img>
         <p>She is going to take a swimming lesson in the afternoon. How <b>hard</b> do you think that would be for Cathy?</p>
         </div>`,
     require_movement: true,
@@ -133,7 +137,7 @@ var s2t2 = {
     stimulus: `<div>
         <p>Cathy has been practicing math problems all morning and her energy now looks like this.</p>
         </div>
-        <img src="img/half_bar.png" width="400" height="50" ></img>
+        <img src="img/half_bar.png" width="520" height="45" ></img>
         <p>She is going to take a swimming lesson in the afternoon. How <b>hard</b> do you think that would be for Cathy?</p>
         </div>`,
     require_movement: true,
