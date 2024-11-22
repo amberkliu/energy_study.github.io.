@@ -8,6 +8,7 @@
     <script src="https://unpkg.com/@jspsych/plugin-html-slider-response@2.0.0"></script>
     <script src="https://unpkg.com/@jspsych/plugin-preload@2.0.0"></script>
     <script src="https://unpkg.com/@jspsych/plugin-html-button-response@2.0.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-video-button-response@2.0.0"></script>
     <link href="https://unpkg.com/jspsych@8.0.3/css/jspsych.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="slider.css">
   </head>
@@ -19,13 +20,14 @@
 
 var timeline = [];
 
-/* preload images */
+/* preload images 
 var preload = {
       type: jsPsychPreload,
-      images: ['img/full_bar.png','img/empty_bar.png','img/half_bar.png','img/jump.png','img/sit.png']
+      images: ['img/full_bar.png','img/empty_bar.png','img/half_bar.png','img/jump.png','img/sit.png'],
+      video:['video/bar_decrease.mp4','video/bar_increase.mp4']
     };
     timeline.push(preload);
-
+*/
 var intro = {
   type: jsPsychHtmlButtonResponse,
   stimulus: `<div>
@@ -35,15 +37,37 @@ var intro = {
         <p>And When someone is really tired, it looks like this:</p>
       </div>
         <img src="img/empty_bar.png" width="400" height="50" ></img>
-        <p> Some things make us tired. Other things make us less tired. Let’s think about them together! <p>
+        <p> Some things make us tired. Other things make us less tired. As a result, the energy bar can go up and down. <p>
         </div>`,
   choices: ['Continue']
 }
 timeline.push(intro);
 
+var bar_change_intro1 = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus: `<div>
+    <p>This is what happens when someone does something that makes them really tired - their energy goes all the way down!</p>
+        </div>
+        <video src="video/bar_decrease.mp4" width="520" height="80" autoplay loop muted></video>
+        </div>`,
+  choices: ['Continue']
+}
+timeline.push(bar_change_intro1);
+
+var bar_change_intro2 = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus: `<div>
+    <p>This is what happens when someone does something that make them much less tired - their energy goes all the way up!</p>
+        </div>
+        <video src="video/bar_increase.mp4" width="520" height="80" autoplay loop muted></video>
+        </div>`,
+  choices: ['Continue']
+}
+timeline.push(bar_change_intro2);
+
 var check = {
   type: jsPsychHtmlButtonResponse,
-  stimulus: '<p>When someone is really really tired, how would their energy bar most likely look like?</p>',
+  stimulus: '<p>What does someone’s energy bar look like when they’re really really tired?</p>',
     choices: ['img/empty_bar.png', 'img/half_bar.png', 'img/full_bar.png'],
     /*button_html: '<img src="%choice%" style="width:100px; padding: 20px;"></img>'*/
     button_html: (choice) => `<img src=${choice} style="width:300px; padding: 20px;cursor: pointer;"></img>`
@@ -52,7 +76,7 @@ timeline.push(check);
 
 var check2 = {
   type: jsPsychHtmlButtonResponse,
-  stimulus: '<p>When someone is not tired at all, how would their energy bar most likely look like?</p>',
+  stimulus: '<p>What does someone’s energy bar look like when they’re not tired at all?</p>',
     choices: ['img/empty_bar.png', 'img/half_bar.png', 'img/full_bar.png'],
     /*button_html: function(choice) {
     return '<button class="jspsych-btn"><img src="' + choice + '" alt="choice" style="width:300px; padding: 20px;"></button>';
@@ -74,19 +98,20 @@ var s1t1 = {
     stimulus: `<div>
         <p>This is what Adam’s energy bar looks like now.</p>
         </div>
-        <img src="img/half_bar.png" width="520" height="45" ></img>
+        <img src="img/half_bar.png" width="620" height="45" ></img>
         <p>Adam then goes off to run a race for an hour. What do you think his energy bar will look like after that?</p>
       <div>
         <img src="img/boy_running.png" width="200" height="200"></img> 
       </div>
-        <img src="img/anchoring_pic.png" width="500" height="60"></img>`,
+        <img src="img/anchoring_pics.png" width="630" height="70"></img>`,
     require_movement: true,
     slider_start:50,
-    slider_width: 500,
+    slider_width: 600,
     labels: ['Really tired','Not tired at all'],
     css_classes: ['energy-slider']
       }
       timeline.push(s1t1);
+
 var s1t2 = {
           type: jsPsychHtmlSliderResponse,
     stimulus: `<div>
@@ -102,6 +127,7 @@ var s1t2 = {
     css_classes: ['energy-slider']
       }
       timeline.push(s1t2);
+
 var s1t3 = {
           type: jsPsychHtmlSliderResponse,
     stimulus: `<div>
@@ -117,6 +143,7 @@ var s1t3 = {
     css_classes: ['energy-slider']
       }
       timeline.push(s1t3);
+
 var s2t1 = {
           type: jsPsychHtmlSliderResponse,
     stimulus: `<div>
@@ -132,6 +159,7 @@ var s2t1 = {
     css_classes: ['original-slider']
       }
       timeline.push(s2t1);
+
 var s2t2 = {
           type: jsPsychHtmlSliderResponse,
     stimulus: `<div>
@@ -157,9 +185,10 @@ var s3t1 = {
     slider_width: 500,
     labels: ['Really tired','Not tired at all'],
     css_classes: ['energy-slider']
-
       }
       timeline.push(s3t1);
+
+
 var s3t2 = {
           type: jsPsychHtmlSliderResponse,
     stimulus: `<div style="text-align: center; width:800px;">
