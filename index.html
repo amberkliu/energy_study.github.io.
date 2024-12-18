@@ -77,13 +77,13 @@ var comp_check1 = {
     <p>Let's make sure we understand how the energy bar works!</p>
         </div><br>
     <p> If someone is <b>a little tired</b> right now, how would their energy bar look like?</p>
-    <p> (Drag the slider to indicate your answer)</p>
     <br>
     <img src="img/anchoring_pics.png" width="630" height="70"></img>`,
     require_movement: true,
     slider_start:50,
     slider_width: 600,
     labels: ['Really tired','Not tired at all'],
+    prompt: "<p>(Drag the slider to indicate your answer)</p>",
     css_classes: ['energy-slider']
 }
 timeline.push(comp_check1);
@@ -94,12 +94,12 @@ var comp_check2 = {
     <p>Great job!</p>
         </div><br>
     <p> If someone is <b>feeling OK</b> right now, how would her energy bar look like? </p>
-    <p> (Drag the slider to indicate your answer)</p>
     <br><img src="img/anchoring_pics.png" width="630" height="70"></img>`,
     require_movement: true,
     slider_start:50,
     slider_width: 600,
     labels: ['Really tired','Not tired at all'],
+    prompt: "<p>(Drag the slider to indicate your answer)</p>",
     css_classes: ['energy-slider']
 }
 timeline.push(comp_check2);
@@ -110,12 +110,12 @@ var comp_check3 = {
     <p>Great job!</p>
         </div><br>
     <p> If someone is <b>feeling quite energetic</b> right now, how would her energy bar look like?</p>
-    <p> (Drag the slider to indicate your answer)</p>
     <br><img src="img/anchoring_pics.png" width="630" height="70"></img>`,
     require_movement: true,
     slider_start:50,
     slider_width: 600,
     labels: ['Really tired','Not tired at all'],
+    prompt: "<p>(Drag the slider to indicate your answer)</p>",
     css_classes: ['energy-slider']
 }
 timeline.push(comp_check3);
@@ -189,6 +189,7 @@ const expt1 = {
             slider_start:50,
             slider_width: 600,
             labels: ['Really tired','Not tired at all'],
+            prompt: "<p>(Drag the slider to indicate your answer)</p>",
             css_classes: ['energy-slider']
         }
     ],
