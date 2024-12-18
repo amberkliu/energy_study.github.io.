@@ -16,7 +16,7 @@
   <style>
     p {
       word-wrap:break-word;
-      width:70%;
+      width:80%;
       text-align:center;
       margin: auto;
       }
@@ -39,15 +39,12 @@ var preload = {
 */
 var intro = {
   type: jsPsychHtmlButtonResponse,
-  stimulus: `<div>
+  stimulus: `
         <p>This is an energy bar. When someone is not tired at all, it looks like this: <p>
-        </div>
         <img src="img/full_bar.png" width="400" height="50" ></img>
-        <p>And When someone is really tired, it looks like this:</p>
-      </div>
+        <br> <p>And When someone is really tired, it looks like this:</p>
         <img src="img/empty_bar.png" width="400" height="50" ></img>
-        <p> Some things make us tired. Other things make us less tired. As a result, the energy bar can go up and down. <p>
-        </div>`,
+        <br><br> <p> Some things make us tired. Other things make us less tired. As a result, the energy bar can go up and down. <p>`,
   choices: ['Continue']
 }
 timeline.push(intro);
@@ -79,7 +76,8 @@ var comp_check1 = {
   stimulus: `<div>
     <p>Let's make sure we understand how the energy bar works!</p>
         </div><br>
-    <p> If someone is <b>a little tired</b> right now, how would her energy bar look like? Can you show me by dragging the bar below?</p>
+    <p> If someone is <b>a little tired</b> right now, how would their energy bar look like?</p>
+    <p> (Drag the slider to indicate your answer)</p>
     <br>
     <img src="img/anchoring_pics.png" width="630" height="70"></img>`,
     require_movement: true,
@@ -95,7 +93,8 @@ var comp_check2 = {
   stimulus: `<div>
     <p>Great job!</p>
         </div><br>
-    <p> If someone is <b>feeling OK</b> right now, how would her energy bar look like? Can you show me by dragging the bar below?</p>
+    <p> If someone is <b>feeling OK</b> right now, how would her energy bar look like? </p>
+    <p> (Drag the slider to indicate your answer)</p>
     <br><img src="img/anchoring_pics.png" width="630" height="70"></img>`,
     require_movement: true,
     slider_start:50,
@@ -110,7 +109,8 @@ var comp_check3 = {
   stimulus: `<div>
     <p>Great job!</p>
         </div><br>
-    <p> If someone is <b>feeling quite energetic</b> right now, how would her energy bar look like? Can you show me by dragging the bar below?</p>
+    <p> If someone is <b>feeling quite energetic</b> right now, how would her energy bar look like?</p>
+    <p> (Drag the slider to indicate your answer)</p>
     <br><img src="img/anchoring_pics.png" width="630" height="70"></img>`,
     require_movement: true,
     slider_start:50,
@@ -144,7 +144,7 @@ var expt1intro1 = {
         <p>This is our friend Adam. </p>
         <img src="img/Adam.png" width="100" height="200" ></img>
       </div><br>
-        <p>Adam is feeling ok right now, and his energy bar looks like this, right in the middle. </p>
+        <p>Adam is feeling ok right now. His energy bar is <b>right in the middle</b>, like this: </p>
         <br><img src="img/half_bar.png" width="620" height="45" ></img>`,
     choices: ['Continue']
 }
