@@ -10,6 +10,7 @@
     <script src="https://unpkg.com/@jspsych/plugin-html-button-response@2.0.0"></script>
     <script src="https://unpkg.com/@jspsych/plugin-video-button-response@2.0.0"></script>
     <script src="https://unpkg.com/@jspsych/plugin-instructions@2.0.1"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-survey-html-form@2.0.1"></script>
     <link href="https://unpkg.com/jspsych@8.0.3/css/jspsych.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="slider.css">
   </head>
@@ -24,7 +25,8 @@
   <body></body>
   <script>
     const jsPsych = initJsPsych({
-    override_safe_mode: true
+    override_safe_mode: true,
+    show_progress_bar: true
 });
 
 var timeline = [];
@@ -37,14 +39,63 @@ var preload = {
     };
     timeline.push(preload);
 */
+
+var duration = '30 minutes';
+    var amount = '$7.50';
+    var consent = {
+        type: jsPsychHtmlButtonResponse,
+        stimulus: '<p><b>Consent Form</b></p> <div style="text-align:left;' +
+            'background-color:lightblue; padding:2vw; max-width:80vw;">' +
+            '<p><b>Purpose:</b> The purpose of this study is to understand ' +
+            'how people think about actions of others.</p>' +
+            '<p><b>Procedures:</b> In this study, you will read sentences, ' +
+            'see pictures, and use sliders to answer simple questions ' +
+            'about them. This study should take approximately ' + duration + 
+            '</p><p><b>Participation:</b> Participation in this study is ' +
+            'voluntary. If you decide to join now, you can change your mind ' +
+            'later. ' +
+            '</p><p><b>Payment:</b> You will be paid $15.00/hour ' +
+            'for participating in this study. Given the estimated duration of ' +
+            duration + ', your payment will amount to ' + amount + '.</p>' +
+            '<p><b>Risks and benefits:</b> There are no risks associated ' +
+            'with participating in this study. There are no direct benefits ' +
+            'associated with participating in this study. </p><p><b>Use of ' +
+            'data by study researchers:</b> The research team led by Shari ' +
+            'Liu at JHU will have access to your answers. ' +
+            '</p><p><b>Publication of results:</b> The results of the research ' +
+            'may be presented at scientific meetings or published in scientific ' +
+            'journals. Your individual responses may be published. We will ' +
+            'never publish your name, the date that you participated, and any other ' +
+            'information that could be used to identify you. </p><p><b>' +
+            'Researcher contact information:</b> This study is run by Dr. ' +
+            'Shari Liu at JHU. If you have any questions or concerns about ' +
+            'this study, or in the very unlikely event of a research-related ' +
+            'injury, please contact sliu199@jhu.edu. ' +
+            '</p><p><b>Research rights information:</b> If you have questions about ' +
+            'your rights as a research participant or feel that you have not ' +
+            'been treated fairly, please call the Homewood Institutional Review ' +
+            'Board at Johns Hopkins University at (410) 516-6580. If you have ' +
+            'any questions or issues completing the survey, please email Shari ' +
+            'Liu at sliu199@jhu.edu. </p> </div>' +
+            '<p> Do you consent to participate? </p>',
+        choices: ['Yes', 'No'],
+        data: {trial_id: 'consent'},
+        on_finish: function(data) {
+        if (data.response === 1) {  // If 'No' is chosen 
+        jsPsych.abortExperiment('You did not consent to participate. The study will now end. Thank you for your time.');  
+        }
+        }
+    };
+    timeline.push(consent);
+
 var intro = {
   type: jsPsychHtmlButtonResponse,
   stimulus: `
         <p>This is an energy bar. When someone is not tired at all, it looks like this: <p>
-        <img src="img/full_bar.png" width="400" height="50" ></img>
-        <br> <p>And When someone is really tired, it looks like this:</p>
-        <img src="img/empty_bar.png" width="400" height="50" ></img>
-        <br><br> <p> Some things make us tired. Other things make us less tired. As a result, the energy bar can go up and down. <p>`,
+          <br><img src="img/fullbar_w_pics.png" width="600" height="100" ></img>
+        <br><br> <p>And When someone is extremely tired, it looks like this:</p>
+        <br><img src="img/emptybar_w_pics.png" width="600" height="100"></img>
+        <br><br> <p> Some things make us tired, while other things make us less tired. As a result, the energy bar can go up and down. <p>`,
   choices: ['Continue']
 }
 timeline.push(intro);
@@ -52,9 +103,10 @@ timeline.push(intro);
 var bar_change_intro1 = {
   type: jsPsychHtmlButtonResponse,
   stimulus: `<div>
-    <p>This is what happens when someone does something that makes them really tired - their energy goes all the way down!</p>
+    <p>When someone does something that makes them really tired - their energy goes all the way down!</p>
         </div>
-        <video src="video/bar_decrease.mp4" width="520" height="80" autoplay muted></video>
+        <br><div><img src="img/anchoring_pics.png" width="490" height="70"></img></div>,
+        <video src="video/bar_decrease.mp4" width="630" height="80" autoplay muted></video>
         </div>`,
   choices: ['Continue']
 }
@@ -63,9 +115,10 @@ timeline.push(bar_change_intro1);
 var bar_change_intro2 = {
   type: jsPsychHtmlButtonResponse,
   stimulus: `<div>
-    <p>This is what happens when someone does something that make them much less tired - their energy goes all the way up!</p>
+    <p>When someone does something that makes them much less tired - their energy goes all the way up!</p>
         </div>
-        <video src="video/bar_increase.mp4" width="520" height="80" autoplay muted></video>
+        <br><div><img src="img/anchoring_pics.png" width="490" height="70"></img></div>,
+        <video src="video/bar_increase.mp4" width="630" height="80" autoplay muted></video>
         </div>`,
   choices: ['Continue']
 }
@@ -76,7 +129,7 @@ var comp_check1 = {
   stimulus: `<div>
     <p>Let's make sure we understand how the energy bar works!</p>
         </div><br>
-    <p> If someone is <b>a little tired</b> right now, how would their energy bar look like?</p>
+    <p> If someone is <b>a little tired</b> right now, what would their energy bar look like?</p>
     <br>
     <img src="img/anchoring_pics.png" width="630" height="70"></img>`,
     require_movement: true,
@@ -84,25 +137,66 @@ var comp_check1 = {
     slider_width: 600,
     labels: ['Really tired','Not tired at all'],
     prompt: "<p>(Drag the slider to indicate your answer)</p>",
-    css_classes: ['energy-slider']
+    css_classes: ['energy-slider'],
+    on_finish: function(data){
+    // Score the slider response as correct or incorrect.
+    if (data.response < '50'){
+      data.correct = true;
+    } else {
+      data.correct = false; 
+    }}
 }
 timeline.push(comp_check1);
+
+var feedback1 = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus: function(){
+      var last_trial_correct  = jsPsych.data.get().last(1).values()[0].correct;
+    if(last_trial_correct){
+      return "<p>Correct!</p>"; 
+    } else {
+      return "<p>Wrong.<br> If someone is <b>a little tired</b>, the slider endpoint should be on the left side of the bar.</p>"; 
+    }
+},
+  choices: ['Continue']
+}
+timeline.push(feedback1);
 
 var comp_check2 = {
   type: jsPsychHtmlSliderResponse,
   stimulus: `<div>
     <p>Great job!</p>
         </div><br>
-    <p> If someone is <b>feeling OK</b> right now, how would her energy bar look like? </p>
+    <p> If someone is <b>feeling OK</b> right now, what would her energy bar look like? </p>
     <br><img src="img/anchoring_pics.png" width="630" height="70"></img>`,
     require_movement: true,
     slider_start:50,
     slider_width: 600,
     labels: ['Really tired','Not tired at all'],
     prompt: "<p>(Drag the slider to indicate your answer)</p>",
-    css_classes: ['energy-slider']
+    css_classes: ['energy-slider'],
+    on_finish: function(data){
+    if (data.response < '60' && data.response > '40' ){
+      data.correct = true;
+    } else {
+      data.correct = false; 
+    }}
 }
 timeline.push(comp_check2);
+
+var feedback2 = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus: function(){
+      var last_trial_correct  = jsPsych.data.get().last(1).values()[0].correct;
+    if(last_trial_correct){
+      return "<p>Correct!</p>"; 
+    } else {
+      return "<p>Wrong.<br> If someone is <b>feeling OK</b>, the slider endpoint should be around the middle of the bar.</p>"; 
+    }
+},
+  choices: ['Continue']
+}
+timeline.push(feedback2);
 
 var comp_check3 = {
   type: jsPsychHtmlSliderResponse,
@@ -116,9 +210,29 @@ var comp_check3 = {
     slider_width: 600,
     labels: ['Really tired','Not tired at all'],
     prompt: "<p>(Drag the slider to indicate your answer)</p>",
-    css_classes: ['energy-slider']
+    css_classes: ['energy-slider'],
+    on_finish: function(data){
+    if (data.response > '50' ){
+      data.correct = true;
+    } else {
+      data.correct = false; 
+    }}
 }
 timeline.push(comp_check3);
+
+var feedback3 = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus: function(){
+      var last_trial_correct  = jsPsych.data.get().last(1).values()[0].correct;
+    if(last_trial_correct){
+      return "<p>Correct!</p>"; 
+    } else {
+      return "<p>Wrong.<br> If someone is <b>feeling quite energetic</b>, the slider endpoint should be on the right side of the bar.</p>"; 
+    }
+},
+  choices: ['Continue']
+}
+timeline.push(feedback3);
 
 /* multiple-choice comp check
 var check = {
@@ -129,6 +243,18 @@ var check = {
     button_html: (choice) => `<img src=${choice} style="width:300px; padding: 20px;cursor: pointer;"></img>`
 };
 timeline.push(check);*/
+
+var transition1 = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus:
+    `<div>
+        <p>You are all set to go! </p>
+      </div><br>
+        <p>There are three tasks in this study. In the first task, you will be asked to judge someone’s energy states after certain activities.</p>
+        <p><br>To proceed to the first task, please click "Continue". </p>`,
+    choices: ['Continue']
+}
+timeline.push(transition1);
 
 var expt1intro1 = {
   type: jsPsychHtmlButtonResponse,
@@ -141,7 +267,7 @@ var expt1intro1 = {
         </div>`,*/
   stimulus:
     `<div>
-        <p>This is our friend Adam. </p>
+        <p>This is our friend Adam. He is 6 years old. </p>
         <img src="img/Adam.png" width="100" height="200" ></img>
       </div><br>
         <p>Adam is feeling ok right now. His energy bar is <b>right in the middle</b>, like this: </p>
@@ -161,7 +287,7 @@ var expt1intro2 = {
 }
     timeline.push(expt1intro2);
 
-var s1t2 = {
+var sliderdemo = {
           type: jsPsychHtmlSliderResponse,
     stimulus: `<div>
         <p>This is how Bob's energy looks like now.</p>
@@ -194,105 +320,210 @@ const expt1 = {
         }
     ],
     timeline_variables: [
-        { trial:  `<div><p>If Adam goes off to run a race for an hour, what do you think his energy bar will look like after that?</p>
+        { trial:  `<div><p> If Adam goes off to <b>run a race</b> for an hour, what do you think his energy bar will look like <b>afterwards</b>?</p>
           <br><div><img src="img/running.jpg" width="200" height="200"></img> 
           <br><br></div><img src="img/anchoring_pics.png" width="630" height="70"></img>` },
-        { trial: `<div><p>If Adam goes off to swim in the lake for an hour, what do you think his energy bar will look like after that?</p>
+        { trial: `<div><p>If Adam goes off to <b>swim in the lake</b> for an hour, what do you think his energy bar will look like <b>afterwards</b>?</p>
           <br><div><img src="img/swimming.jpg" width="200" height="200"></img> 
             <br><br></div><img src="img/anchoring_pics.png" width="630" height="70"></img>` },
-        { trial:  `<div><p>If Adam goes off to jump up and down for an hour, what do you think his energy bar will look like after that?</p>
+        { trial:  `<div><p>If Adam goes off to <b>jump up and down</b> for an hour, what do you think his energy bar will look like <b>afterwards</b>?</p>
           <br><div><img src="img/trampoline.jpg" width="200" height="200"></img> 
           <br><br></div><img src="img/anchoring_pics.png" width="630" height="70"></img>` },
-        { trial:  `<div><p>If Adam goes off to take a hike for an hour, what do you think his energy bar will look like after that?</p>
+        { trial:  `<div><p>If Adam goes off to <b>take a hike</b> for an hour, what do you think his energy bar will look like <b>afterwards</b>?</p>
           <br><div><img src="img/hiking.jpg" width="200" height="200"></img> 
           <br><br></div><img src="img/anchoring_pics.png" width="630" height="70"></img>` },
-        { trial:  `<div><p>If Adam goes off to climb up stairs for an hour, what do you think his energy bar will look like after that?</p>
+        { trial:  `<div><p>If Adam goes off to <b>climb up stairs</b> for an hour, what do you think his energy bar will look like <b>afterwards</b>?</p>
           <br><div><img src="img/stairs.jpg" width="200" height="200"></img> 
           <br><br></div><img src="img/anchoring_pics.png" width="630" height="70"></img>` },
-        { trial:  `<div><p>If Adam goes off to clean the house for an hour, what do you think his energy bar will look like after that?</p>
+        { trial:  `<div><p>If Adam goes off to <b>clean the house</b> for an hour, what do you think his energy bar will look like <b>afterwards</b>?</p>
           <br><div><img src="img/housecleaning.jpg" width="200" height="200"></img> 
           <br><br></div><img src="img/anchoring_pics.png" width="630" height="70"></img>` },
 
-        { trial:  `<div><p>If Adam goes off to do his homework for an hour, what do you think his energy bar will look like after that?</p>
+        { trial:  `<div><p>If Adam goes off to <b>do his homework</b> for an hour, what do you think his energy bar will look like <b>afterwards</b>?</p>
           <br><div><img src="img/homework.jpg" width="200" height="200"></img> 
           <br><br></div><img src="img/anchoring_pics.png" width="630" height="70"></img>` },
-        { trial:  `<div><p>If Adam goes off to learn alphabets for an hour, what do you think his energy bar will look like after that?</p>
+        { trial:  `<div><p>If Adam goes off to <b>learn alphabets</b> for an hour, what do you think his energy bar will look like <b>afterwards</b>?</p>
           <br><div><img src="img/alphabets.jpg" width="200" height="200"></img> 
           <br><br></div><img src="img/anchoring_pics.png" width="630" height="70"></img>` },
-        { trial:  `<div><p>If Adam goes off to practice math problems for an hour, what do you think his energy bar will look like after that?</p>
+        { trial:  `<div><p>If Adam goes off to <b>solve math problems</b> for an hour, what do you think his energy bar will look like <b>afterwards</b>?</p>
           <br><div><img src="img/number.jpg" width="200" height="200"></img> 
           <br><br></div><img src="img/anchoring_pics.png" width="630" height="70"></img>` },
-        { trial:  `<div><p>If Adam goes off to practice handwriting for an hour, what do you think his energy bar will look like after that?</p>
+        { trial:  `<div><p>If Adam goes off to <b>work on handwriting</b> for an hour, what do you think his energy bar will look like <b>afterwards</b>?</p>
           <br><div><img src="img/handwriting.jpg" width="200" height="200"></img> 
           <br><br></div><img src="img/anchoring_pics.png" width="630" height="70"></img>` },
-        { trial:  `<div><p>If Adam goes off to practice sounding out words from flashcards for an hour, what do you think his energy bar will look like after that?</p>
+        { trial:  `<div><p>If Adam goes off to <b>practice sounding out words from flashcards</b> for an hour, what do you think his energy bar will look like <b>afterwards</b>?</p>
           <br><div><img src="img/soundingwords.jpg" width="200" height="200"></img> 
           <br><br></div><img src="img/anchoring_pics.png" width="630" height="70"></img>` },
-        { trial:  `<div><p>If Adam goes off to practice violin for an hour, what do you think his energy bar will look like after that?</p>
+        { trial:  `<div><p>If Adam goes off to <b>practice violin</b> for an hour, what do you think his energy bar will look like <b>afterwards</b>?</p>
           <br><div><img src="img/violin.jpg" width="200" height="200"></img> 
           <br><br></div><img src="img/anchoring_pics.png" width="630" height="70"></img>` },
 
-        { trial:  `<div><p>If Adam goes off to take a nap for an hour, what do you think his energy bar will look like after that?</p>
+        { trial:  `<div><p>If Adam goes off to <b>take a nap</b> for an hour, what do you think his energy bar will look like <b>afterwards</b>?</p>
           <br><div><img src="img/nap.jpg" width="200" height="200"></img> 
           <br><br></div><img src="img/anchoring_pics.png" width="630" height="70"></img>` },
-        { trial:  `<div><p>If Adam goes off to listen to his favorite stories for an hour, what do you think his energy bar will look like after that?</p>
+        { trial:  `<div><p>If Adam goes off to <b>listen to his favorite stories</b> for an hour, what do you think his energy bar will look like <b>afterwards</b>?</p>
           <br><div><img src="img/storyreading.jpg" width="200" height="200"></img> 
           <br><br></div><img src="img/anchoring_pics.png" width="630" height="70"></img>` },
-        { trial:  `<div><p>If Adam goes off to watch his favorite tv show on the couch for an hour, what do you think his energy bar will look like after that?</p>
+        { trial:  `<div><p>If Adam goes off to <b>watch his favorite show on the couch</b> for an hour, what do you think his energy bar will look like <b>afterwards</b>?</p>
           <br><div><img src="img/watchingtv.jpg" width="200" height="200"></img> 
           <br><br></div><img src="img/anchoring_pics.png" width="630" height="70"></img>` },
-        { trial:  `<div><p>If Adam goes off to stretch for an hour, what do you think his energy bar will look like after that?</p>
+        { trial:  `<div><p>If Adam goes off to <b>stretch</b> for an hour, what do you think his energy bar will look like <b>afterwards</b>?</p>
           <br><div><img src="img/stretch.jpg" width="200" height="200"></img> 
           <br><br></div><img src="img/anchoring_pics.png" width="630" height="70"></img>` },
-        { trial:  `<div><p>If Adam goes off to take a bath for an hour, what do you think his energy bar will look like after that?</p>
+        { trial:  `<div><p>If Adam goes off to <b>take a bath</b> for an hour, what do you think his energy bar will look like <b>afterwards</b>?</p>
           <br><div><img src="img/bathing.jpg" width="200" height="200"></img> 
           <br><br></div><img src="img/anchoring_pics.png" width="630" height="70"></img>` },
-        { trial:  `<div><p>If Adam goes off to sit down and draw pictures for an hour, what do you think his energy bar will look like after that?</p>
+        { trial:  `<div><p>If Adam goes off to <b>sit down and draw pictures</b> for an hour, what do you think his energy bar will look like <b>afterwards</b>?</p>
           <br><div><img src="img/painting.jpg" width="200" height="200"></img> 
+          <br><br></div><img src="img/anchoring_pics.png" width="630" height="70"></img>` },
+
+        { trial:  `<div><p> Please drag the slider all the way to the right, and click "Continue".</p>
+          <br><br></div><img src="img/anchoring_pics.png" width="630" height="70"></img>` },
+        { trial:  `<div><p> Please drag the slider all the way to the left, and click "Continue".</p>
           <br><br></div><img src="img/anchoring_pics.png" width="630" height="70"></img>` },
     ],
     randomize_order: true
 }
 timeline.push(expt1);
 
+var transition2 = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus:
+    `<div>
+        <p>You have completed the first task - well done!  </p>
+      </div><br>
+        <p>In the next task, you will be asked to judge the difficulty of activities in different scenarios.</p>
+        <p><br>To proceed to the second task, please click "Continue". </p>`,
+    choices: ['Continue']
+}
+timeline.push(transition2);
+
+const expt2 = {
+    timeline: [
+        {
+            type: jsPsychHtmlSliderResponse,
+            stimulus: jsPsych.timelineVariable('trial'),
+            require_movement: true,
+            slider_start:0,
+            slider_width: 500,
+            labels: ['Not hard at all', 'Extremely hard'],
+            prompt: "<p>(Drag the slider to indicate your answer)</p>",
+            css_classes: ['original-slider']
+        }
+    ],
+    timeline_variables: [
+        { trial:  `<div><p>This is what Emma's energy looks like right now.</p></div>
+        <img src="img/fullbar_w_pics.png" width="400" height="60" ></img>
+        <br><p>Emma is going to <b>spend 10 minutes cleaning up her bedroom</b> this afternoon. How <b>hard</b> do you think that would be for Emma?</p>
+        <img src="img/Emma.png" width="200" height="200" ></img>
+        <br><img src="img/anchoring_smileys.png" width="535" height="70"></img>` },
+        { trial:  `<div><p>This is what Hiro's energy looks like right now.</p></div>
+        <img src="img/fullbar_w_pics.png" width="400" height="60" ></img>
+        <br><p>Hiro is going to <b>spend 2 hours cleaning his house</b> this afternoon. How <b>hard</b> do you think that would be for Hiro?</p>
+        <img src="img/Hiro.png" width="200" height="200" ></img>
+        <br><img src="img/anchoring_smileys.png" width="535" height="70"></img>` },
+        { trial:  `<div><p>This is what Nick's energy looks like right now.</p></div>
+        <img src="img/emptybar_w_pics.png" width="400" height="60" ></img>
+        <br><p>Nick is going to <b>spend 10 minutes cleaning up his bedroom</b> this afternoon. How <b>hard</b> do you think that would be for Nick?</p>
+        <img src="img/Nick.png" width="200" height="200" ></img>
+        <br><img src="img/anchoring_smileys.png" width="535" height="70"></img>` },
+        { trial:  `<div><p>This is what Nina's energy looks like right now.</p></div>
+        <img src="img/emptybar_w_pics.png" width="400" height="60" ></img>
+        <br><p>Nina is going to <b>spend 2 hours cleaning her house</b> this afternoon. How <b>hard</b> do you think that would be for Nina?</p>
+        <img src="img/Nina.png" width="200" height="200" ></img>
+        <br><img src="img/anchoring_smileys.png" width="535" height="70"></img>` },
+
+        { trial:  `<div><p>This is what Jasmine's energy looks like right now.</p></div>
+        <img src="img/fullbar_w_pics.png" width="400" height="60" ></img>
+        <br><p>Jasmine is going to <b>spend 10 minutes on a homework question</b> this afternoon. How <b>hard</b> do you think that would be for Jasmine?</p>
+        <img src="img/Jasmine.png" width="200" height="200" ></img>
+        <br><img src="img/anchoring_smileys.png" width="535" height="70"></img>` },
+        { trial:  `<div><p>This is what Ethan's energy looks like right now.</p></div>
+        <img src="img/fullbar_w_pics.png" width="400" height="60" ></img>
+        <br><p>Ethan is going to <b>spend 2 hours on homework</b> this afternoon. How <b>hard</b> do you think that would be for Ethan?</p>
+        <img src="img/Ethan.png" width="200" height="200" ></img>
+        <br><img src="img/anchoring_smileys.png" width="535" height="70"></img>` },
+        { trial:  `<div><p>This is what Maya's energy looks like right now.</p></div>
+        <img src="img/emptybar_w_pics.png" width="400" height="60" ></img>
+        <br><p>Maya is going to <b>spend 10 minutes on a homework question</b> this afternoon. How <b>hard</b> do you think that would be for Maya?</p>
+        <img src="img/Maya.png" width="200" height="200" ></img>
+        <br><img src="img/anchoring_smileys.png" width="535" height="70"></img>` },
+        { trial:  `<div><p>This is what Eric's energy looks like right now.</p></div>
+        <img src="img/emptybar_w_pics.png" width="400" height="60" ></img>
+        <br><p>Eric is going to <b>spend 2 hours on homework</b> this afternoon. How <b>hard</b> do you think that would be for Eric?</p>
+        <img src="img/Eric.png" width="200" height="200" ></img>
+        <br><img src="img/anchoring_smileys.png" width="535" height="70"></img>` },
+          ],
+    randomize_order: true
+}
+timeline.push(expt2);
+
 var s2t1 = {
           type: jsPsychHtmlSliderResponse,
-    stimulus: `<div>
-        <p>This is what Cathy's energy looks like right now.</p>
-        </div>
-        <img src="img/full_bar.png" width="520" height="45" ></img>
-        <p>She is going to take a swimming lesson in the afternoon. How <b>hard</b> do you think that would be for Cathy?</p>
-        </div>`,
+    stimulus: `<div><p>This is what Emma's energy looks like right now.</p></div>
+        <img src="img/fullbar_w_pics.png" width="400" height="60" ></img>
+        <p>Emma is going to <b>spend 10 minutes cleaning up her bedroom</b> this afternoon. How <b>hard</b> do you think that would be for Emma?</p>
+        <img src="img/Emma.png" width="200" height="200" ></img>
+        <br><img src="img/anchoring_smileys.png" width="535" height="70"></img>`,
     require_movement: true,
     slider_start:0,
     slider_width: 500,
     labels: ['Not hard at all', 'Extremely hard'],
     css_classes: ['original-slider']
       }
-      timeline.push(s2t1);
 
-var s2t2 = {
-          type: jsPsychHtmlSliderResponse,
-    stimulus: `<div>
-        <p>This is what Bob's energy looks like right now.</p>
-        </div>
-        <img src="img/half_bar.png" width="520" height="45" ></img>
-        <p>He is going to take a swimming lesson in the afternoon. How <b>hard</b> do you think that would be for Cathy?</p>
-        </div>`,
-    require_movement: true,
-    slider_start:0,
-    slider_width: 500,
-    labels: ['Not hard at all', 'Extremely hard'],
-    css_classes: ['original-slider']
+var transition3 = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus:
+    `<div>
+        <p>You have completed the second task - well done!  </p>
+      </div><br>
+        <p>In the next task, you will be asked to judge people's energy states in different scenarios.</p>
+        <p><br>To proceed to the last task, please click "Continue". </p>`,
+    choices: ['Continue']
+}
+timeline.push(transition3);
+
+const expt3 = {
+    timeline: [
+        {
+            type: jsPsychHtmlSliderResponse,
+            stimulus: jsPsych.timelineVariable('trial'),
+            require_movement: true,
+            slider_start:0,
+            slider_width: 600,
+            labels: ['Really tired','Not tired at all'],
+            prompt: "<p>(Drag the slider to indicate your answer)</p>",
+            css_classes: ['energy-slider']
         }
-      timeline.push(s2t2);
-
+    ],
+    timeline_variables: [
+        { trial:  `<p>  Mei is going to <b>spend 10 minutes walking back home</b> this afternoon. Mei thought, "Wow, that is going to be <b>so hard</b> for me!". </p>
+        <img src="img/Mei.png" width="200" height="200" ></img>
+        <p>What do you think her energy bar looks like right now?</p>
+        <img src="img/anchoring_pics.png" width="630" height="70"></img>`},
+        { trial:  `<p>  Malik is going to <b>spend 10 minutes walking back home</b> this afternoon. Malik thought, "Wow, that is going to be <b>so easy</b> for me!". </p>
+        <img src="img/Malik.png" width="200" height="200" ></img>
+        <p>What do you think his energy bar looks like right now?</p>
+        <img src="img/anchoring_pics.png" width="630" height="70"></img>`},
+        { trial:  `<p>  Chen is going to <b>spend 2 hours running to marathon</b> this afternoon. Chen thought, "Wow, that is going to be <b>so hard</b> for me!". </p>
+        <img src="img/Chen.png" width="200" height="200" ></img>
+        <p>What do you think his energy bar looks like right now?</p>
+        <img src="img/anchoring_pics.png" width="630" height="70"></img>`},
+        { trial:  `<p>  Sophie is going to <b>spend 2 hours running to marathon</b> this afternoon. Sophie thought, "Wow, that is going to be <b>so easy</b> for me!". </p>
+        <img src="img/Sophie.png" width="200" height="200" ></img>
+        <p>What do you think her energy bar looks like right now?</p>
+        <img src="img/anchoring_pics.png" width="630" height="70"></img>`},
+        ],
+    randomize_order: true
+}
+timeline.push(expt3);
 
 
 var s3t1 = {
           type: jsPsychHtmlSliderResponse,
     stimulus: `<div style="text-align: center; width:800px;">
-        <p>  Cathy has a race to run this afternoon. Cathy thought, "Wow, that is going to be so hard for me!". </p>
+        <p>  Cathy has a race to run this afternoon. Cathy thought, "Wow, that is going to be <b>so hard</b> for me!". </p>
         <p class="centered" >What do you think her energy bar looks like right now?</p>
       </div>
         <img src="img/anchoring_pics.png" width="630" height="70"></img>`,
@@ -302,23 +533,101 @@ var s3t1 = {
     labels: ['Really tired','Not tired at all'],
     css_classes: ['energy-slider']
       }
-      timeline.push(s3t1);
 
-var s3t2 = {
-          type: jsPsychHtmlSliderResponse,
-    stimulus: `<div style="text-align: center; width:800px;">
-        <p class="centered" >Cathy needs to practice math problems this afternoon. Cathy thought, "Wow, that is going to be so easy for me!".</p>
-        <p class="centered" >What do you think her energy bar looks like right now?</p>
-      </div>
-        <img src="img/anchoring_pics.png" width="630" height="70"></img>`,
-    require_movement: true,
-    slider_start:50,
-    slider_width: 500,
-    labels: ['Really tired','Not tired at all'],
-    css_classes: ['energy-slider']
-        }
-      timeline.push(s3t2);
 
+// **OUTRO**
+  var debrief = {
+        type: jsPsychInstructions,
+        pages: [
+            '<p style="font-size: 24px;"><strong>Debrief</strong></p>' +
+            '<p>Thank you so much for helping us with this study!</p>' +
+            '<p>to be added</p>' +
+            '<p>Next up, we have a few final questions about yourself and your experience today.</p>'
+        ],
+        show_clickable_nav: true,
+        button_label_next: 'Next'
+        };
+  timeline.push(debrief);
+
+
+        var feedback_demographics = {
+            type: jsPsychSurveyHtmlForm,
+            html: '<div style="max-width:700px; text-align:center;"> <p>' +
+                'What factors influenced how you decided to respond? Do you' +
+                ' have any questions or comments regarding the experiment?' +
+                '</p> <textarea name="feedback" cols="40" rows="6"' +
+                ' "autofocus"></textarea> <p> Please provide the following' +
+                ' information to complete the study. </p> <div style="text-' +
+                'align:center;"> <div style="text-align:left; display:' +
+                'inline-block; margin-right:20px; line-height:1.8em;"> <ol>' +
+                    '<li>Age:</li> <br>' +
+                    '<li>Gender:</li> <br><br>' +
+                    '<li>Race:</li> <br><br><br><br><br><br>' +
+                    '<li>Ethnicity:</li>' +
+                '</ol> </div>' +
+                '<div style="text-align:left; display: inline-block;' +
+                ' line-height:1.8em;">' +
+                    // age text box
+                    '<input name="age" type="number"  min="18" max="100" /> <br> <br>' +
+                    // gender options
+                    '<input name="gender" type="radio" id="female" value=' +
+                        '"Female" /> <label for="female"> Female </label>' +
+                    '<input name="gender" type="radio" id="male" value=' +
+                        '"Male" /> <label for="male"> Male </label>' +
+                    '<input name="gender" type="radio" id="nonbinary" value=' +
+                        '"Non-binary" /> <label for="nonbinary"> Non-binary </label> <br>' +
+                    '<input name="gender" type="radio" id="other_gender" value=' +
+                        '"other_gender" /> <label for="other_gender"> Other: <input' +
+                        ' type="text" name="other_gender" /> </label> <br><br>' +
+                    // race options
+                    '<input name="race" type="radio" id="white" value=' +
+                        '"White" /> <label for="white"> White </label> <br>' +
+                    '<input name="race" type="radio" id="black" value=' +
+                        '"Black/African American" /> <label for="black">' +
+                        ' Black/African American </label> <br>' +
+                    '<input name="race" type="radio" id="am_ind" value=' +
+                        '"American Indian/Alaska Native" /> <label for="am_ind">' +
+                        ' American Indian/Alaska Native </label> <br>' +
+                    '<input name="race" type="radio" id="asian" value=' +
+                        '"Asian" /> <label for="asian"> Asian </label> <br>' +
+                    '<input name="race" type="radio" id="pac_isl" value=' +
+                        '"Native Hawaiian/Pacific Islander" /> <label for="pac_isl">' +
+                        ' Native Hawaiian/Pacific Islander </label> <br>' +
+                    '<input name="race" type="radio" id="other_race" value="other_race" />' +
+                        '<label for="other_race"> Other: <input type="text"' +
+                        'name="other_race" /> </label> <br><br>' +
+                    // ethnicity options
+                    '<input name="ethnicity" type="radio" id="hisp" value=' +
+                        '"Hispanic" /> <label for="hisp"> Hispanic </label>' +
+                    '<input name="ethnicity" type="radio" id="nonhisp" value=' +
+                        '"Non-Hispanic" /> <label for="nonhisp"> Non-Hispanic' +
+                        ' </label>' +
+                '</div> </div>' +
+                '<p> Please press the finish button to complete the experiment. </p> </div>',
+            button_label: 'Finish',
+            data: { trial_id: 'demographics_survey'},
+            on_finish: function(data){
+
+            data.feedback = data.response['feedback'];
+            data.age = data.response['age'];
+            data.ethnicity = data.response['ethnicity']
+            data.gender = data.response['gender']
+            data.race = data.response['race']
+
+            //override undefined or other values
+            if (data.gender == "other_gender" || typeof data.gender == "undefined") {
+                data.gender = data.response['other_gender']};
+            delete data.other_gender;
+
+            if (data.race == "other_race" || typeof data.race == "undefined") {
+                data.race = data.response['other_race']};
+            delete data.other_race;
+
+            if (typeof data.ethnicity == "undefined") {
+                data.ethnicity = ""}
+            }
+        };
+        timeline.push(feedback_demographics);
 jsPsych.run(timeline);
 
   </script>
