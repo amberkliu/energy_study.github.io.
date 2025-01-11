@@ -43,8 +43,8 @@ var preload = {
     timeline.push(preload);
 */
 
-var duration = '30 minutes';
-    var amount = '$7.50';
+var duration = '10 minutes';
+    var amount = '$2.50';
     var consent = {
         type: jsPsychHtmlButtonResponse,
         stimulus: '<p><b>Consent Form</b></p> <div style="text-align:left;' +
@@ -90,6 +90,17 @@ var duration = '30 minutes';
         }
     };
     timeline.push(consent);
+
+
+var intro = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus: `
+        <p><b>Welcome to the study! </b><p>
+          <br> <p> In this study, you will be asked to predict a person's energy states after certain activities using sliders.</p>
+          <p>You will start with a short tutorial on the slider, followed by the task. <p><br>`,
+  choices: ['Continue']
+}
+timeline.push(intro);
 
 var intro_energybar = {
   type: jsPsychHtmlButtonResponse,
@@ -323,7 +334,7 @@ var intro_difficulty_bar = {
           <div><img src="img/difficultybar_w_anchors.png" width="600" height="110" ></img></div>`,
   choices: ['Continue']
 }
-timeline.push(intro_difficulty_bar);
+//timeline.push(intro_difficulty_bar);
 
 var smiley1 = {
   type: jsPsychHtmlButtonResponse,
@@ -332,7 +343,7 @@ var smiley1 = {
         <br><img src="img/smiley1.png" width="600" height="108"></img>`,
   choices: ['Continue']
 }
-timeline.push(smiley1);
+//timeline.push(smiley1);
 
 var smiley2 = {
   type: jsPsychHtmlButtonResponse,
@@ -341,7 +352,7 @@ var smiley2 = {
         <br><img src="img/smiley2.png" width="600" height="108"></img>`,
   choices: ['Continue']
 }
-timeline.push(smiley2);
+//timeline.push(smiley2);
 
 var smiley3 = {
   type: jsPsychHtmlButtonResponse,
@@ -350,7 +361,7 @@ var smiley3 = {
         <br><img src="img/smiley3.png" width="600" height="108"></img>`,
   choices: ['Continue']
 }
-timeline.push(smiley3);
+//timeline.push(smiley3);
 
 var smiley4 = {
   type: jsPsychHtmlButtonResponse,
@@ -359,7 +370,7 @@ var smiley4 = {
         <br><img src="img/smiley4.png" width="600" height="108"></img>`,
   choices: ['Continue']
 }
-timeline.push(smiley4);
+//timeline.push(smiley4);
 
 var smiley5 = {
   type: jsPsychHtmlButtonResponse,
@@ -368,7 +379,7 @@ var smiley5 = {
         <br><img src="img/smiley5.png" width="600" height="108"></img>`,
   choices: ['Continue']
 }
-timeline.push(smiley5);
+//timeline.push(smiley5);
 
 var diffbar_comp_check1 = {
   type: jsPsychHtmlSliderResponse,
@@ -391,7 +402,7 @@ var diffbar_comp_check1 = {
       data.correct = false; 
     }}
 }
-timeline.push(diffbar_comp_check1);
+//timeline.push(diffbar_comp_check1);
 
 var diffbar_feedback1 = {
   type: jsPsychHtmlButtonResponse,
@@ -407,7 +418,7 @@ var diffbar_feedback1 = {
 },
   choices: ['Continue']
 }
-timeline.push(diffbar_feedback1);
+//timeline.push(diffbar_feedback1);
 
 var diffbar_comp_check2 = {
   type: jsPsychHtmlSliderResponse,
@@ -430,7 +441,7 @@ var diffbar_comp_check2 = {
       data.correct = false; 
     }}
 }
-timeline.push(diffbar_comp_check2);
+//timeline.push(diffbar_comp_check2);
 
 var diffbar_feedback2 = {
   type: jsPsychHtmlButtonResponse,
@@ -446,7 +457,7 @@ var diffbar_feedback2 = {
 },
   choices: ['Continue']
 }
-timeline.push(diffbar_feedback2);
+//timeline.push(diffbar_feedback2);
 
 var diffbar_comp_check3 = {
   type: jsPsychHtmlSliderResponse,
@@ -469,7 +480,7 @@ var diffbar_comp_check3 = {
       data.correct = false; 
     }}
 }
-timeline.push(diffbar_comp_check3);
+//timeline.push(diffbar_comp_check3);
 
 var diffbar_feedback3 = {
   type: jsPsychHtmlButtonResponse,
@@ -485,7 +496,19 @@ var diffbar_feedback3 = {
 },
   choices: ['Continue']
 }
-timeline.push(diffbar_feedback3);
+//timeline.push(diffbar_feedback3);
+
+
+var transition_pilot = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus:
+    `<div>
+        <p>You are all set to go! </p>
+      </div>
+      <p><br>To proceed to the task, please click "Continue". </p>`,
+    choices: ['Continue']
+}
+timeline.push(transition_pilot);
 
 var transition1 = {
   type: jsPsychHtmlButtonResponse,
@@ -497,7 +520,7 @@ var transition1 = {
         <p><br>To proceed to the first task, please click "Continue". </p>`,
     choices: ['Continue']
 }
-timeline.push(transition1);
+//timeline.push(transition1);
 
 var expt1intro1 = {
   type: jsPsychHtmlButtonResponse,
@@ -631,7 +654,7 @@ const expt1 = {
     ],
     randomize_order: true
 }
-//timeline.push(expt1);
+timeline.push(expt1);
 
 var transition2 = {
   type: jsPsychHtmlButtonResponse,
@@ -643,7 +666,7 @@ var transition2 = {
         <p><br>To proceed to the second task, please click "Continue". </p>`,
     choices: ['Continue']
 }
-timeline.push(transition2);
+//timeline.push(transition2);
 
 
 const expt2 = {
@@ -735,7 +758,7 @@ var transition3 = {
         <p><br>To proceed to the last task, please click "Continue". </p>`,
     choices: ['Continue']
 }
-timeline.push(transition3);
+//timeline.push(transition3);
 
 const expt3 = {
     timeline: [
