@@ -13,6 +13,7 @@
     <script src="https://unpkg.com/@jspsych/plugin-survey-html-form@2.0.1"></script>
     <link href="https://unpkg.com/jspsych@8.0.3/css/jspsych.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="slider.css">
+    <script src="jatos.js"></script>
   </head>
   <style>
     p {
@@ -22,11 +23,13 @@
       margin: auto;
       }
   </style>
-  <body></body>
+  <body>
+  </body>
   <script>
-    const jsPsych = initJsPsych({
+    var jsPsych = initJsPsych({
     override_safe_mode: true,
-    show_progress_bar: true
+    show_progress_bar: true,
+    on_finish: function(){ saveData(jsPsych.data.get().csv()); }
 });
 
 var timeline = [];
@@ -92,7 +95,7 @@ var intro_energybar = {
   type: jsPsychHtmlButtonResponse,
   stimulus: `
         <p>This is an energy bar. It represents a person's energy state.<p>
-          <br><img src="img/fullbar_w_anchors.png" width="600" height="112" ></img>
+          <br><img src="img/fullbar_w_anchors.png" width="600" height="130" ></img>
           <br><br> <p> Some things make us tired, while other things make us less tired. As a result, the energy bar can go up and down. <p>`,
   choices: ['Continue']
 }
@@ -103,6 +106,7 @@ var label1 = {
   stimulus: `
   <div><p>When someone is <b>really tired</b>, their energy bar looks like this: <p></div>
         <br><img src="img/level1.png" width="605" height="115"></img>
+        <div><img src="img/verbal_labels.png" width="630" height="17"></img></div>
         <br><br>`,
   choices: ['Continue']
 }
@@ -113,6 +117,7 @@ var label2 = {
   stimulus: `
   <div><p>When someone is <b>a little tired</b>, their energy bar looks like this: <p></div>
         <br><img src="img/level2.png" width="605" height="115"></img>
+        <div><img src="img/verbal_labels.png" width="630" height="17"></img></div>
         <br><br>`,
   choices: ['Continue']
 }
@@ -123,6 +128,7 @@ var label3 = {
   stimulus: `
   <div><p>When someone is <b>feeling OK</b>, their energy bar looks like this: <p></div>
         <br><img src="img/level3.png" width="605" height="115"></img>
+        <div><img src="img/verbal_labels.png" width="630" height="17"></img></div>
         <br><br>`,
   choices: ['Continue']
 }
@@ -133,6 +139,7 @@ var label4 = {
   stimulus: `
   <div><p>When someone is <b>not tired</b>, their energy bar looks like this: <p></div>
         <br><img src="img/level4.png" width="605" height="115"></img>
+        <div><img src="img/verbal_labels.png" width="630" height="17"></img></div>
         <br><br>`,
   choices: ['Continue']
 }
@@ -143,6 +150,7 @@ var label5 = {
   stimulus: `
   <div><p>When someone is <b>not tired at all</b>, their energy bar looks like this: <p></div>
         <br><img src="img/level5.png" width="605" height="115"></img>
+        <div><img src="img/verbal_labels.png" width="630" height="17"></img></div>
         <br><br>`,
   choices: ['Continue']
 }
@@ -154,9 +162,8 @@ var bar_change_intro1 = {
   stimulus: `<div>
     <p>When someone does something that makes them really tired - their energy goes all the way down!</p>
         </div>
-        <br><div><img src="img/anchoring_pics.png" width="560" height="65"></img></div>,
-        <video src="video/bar_decrease.mp4" width="840" height="92" autoplay muted></video>
-        </div>`,
+        <br><div><video src="video/energy_down.mp4" width="1150" height="130" autoplay muted></video>
+        </div><br><br>`,
   choices: ['Continue']
 }
 timeline.push(bar_change_intro1);
@@ -166,9 +173,9 @@ var bar_change_intro2 = {
   stimulus: `<div>
     <p>When someone does something that makes them much less tired - their energy goes all the way up!</p>
         </div>
-        <br><div><img src="img/anchoring_pics.png" width="560" height="65"></img></div>,
-        <video src="video/bar_increase.mp4" width="840" height="92" autoplay muted></video>
-        </div>`,
+        <br><div>
+        <video src="video/energy_up.mp4" width="1150" height="130" autoplay muted></video>
+        </div><br><br>`,
   choices: ['Continue']
 }
 timeline.push(bar_change_intro2);
@@ -187,6 +194,9 @@ var energy_comp_check1 = {
     labels: ['Really tired','Feeling OK','Not tired at all'],
     prompt: "<p>(Drag the slider to indicate your answer)</p>",
     css_classes: ['energy-slider'],
+    data: {
+    task: 'compcheck'
+  },
     on_finish: function(data){
     // Score the slider response as correct or incorrect.
     if (data.response < '50'){
@@ -218,7 +228,7 @@ var energy_comp_check2 = {
   stimulus: `<div>
     <p>Great!</p>
         </div><br>
-    <p> If someone is <b>feeling OK</b> right now, what would her energy bar look like? </p>
+    <p> If someone is <b>feeling OK</b> right now, what would their energy bar look like? </p>
     <br><img src="img/anchoring_pics.png" width="630" height="70"></img>`,
     require_movement: true,
     slider_start:50,
@@ -226,6 +236,9 @@ var energy_comp_check2 = {
     labels: ['Really tired','Feeling OK','Not tired at all'],
     prompt: "<p>(Drag the slider to indicate your answer)</p>",
     css_classes: ['energy-slider'],
+    data: {
+    task: 'compcheck'
+  },
     on_finish: function(data){
     if (data.response < '60' && data.response > '40' ){
       data.correct = true;
@@ -256,7 +269,7 @@ var energy_comp_check3 = {
   stimulus: `<div>
     <p>Great!</p>
         </div><br>
-    <p> If someone is <b>feeling energetic</b> right now, how would her energy bar look like?</p>
+    <p> If someone is <b>feeling energetic</b> right now, what would their energy bar look like?</p>
     <br><img src="img/anchoring_pics.png" width="630" height="70"></img>`,
     require_movement: true,
     slider_start:50,
@@ -264,6 +277,9 @@ var energy_comp_check3 = {
     labels: ['Really tired', 'Feeling OK','Not tired at all'],
     prompt: "<p>(Drag the slider to indicate your answer)</p>",
     css_classes: ['energy-slider'],
+    data: {
+    task: 'compcheck'
+  },
     on_finish: function(data){
     if (data.response > '50' ){
       data.correct = true;
@@ -515,6 +531,7 @@ var expt1intro2 = {
 }
     timeline.push(expt1intro2);
 
+/*
 var sliderdemo = {
           type: jsPsychHtmlSliderResponse,
     stimulus: `<div>
@@ -533,6 +550,7 @@ var sliderdemo = {
     prompt: `"<img src="img/anchoring_pics.png" width="630" height="70"></img>"`,
     css_classes: ['energy-slider']
       }
+*/
 
 const expt1 = {
     timeline: [
@@ -544,7 +562,8 @@ const expt1 = {
             slider_width: 600,
             labels: ['Really tired','Feeling OK','Not tired at all'],
             prompt: "<p>(Drag the slider to indicate your answer)</p>",
-            css_classes: ['energy-slider']
+            css_classes: ['energy-slider'],
+            data: { task: 'test'}
         }
     ],
     timeline_variables: [
@@ -612,7 +631,7 @@ const expt1 = {
     ],
     randomize_order: true
 }
-timeline.push(expt1);
+//timeline.push(expt1);
 
 var transition2 = {
   type: jsPsychHtmlButtonResponse,
@@ -690,7 +709,7 @@ const expt2 = {
           ],
     randomize_order: true
 }
-timeline.push(expt2);
+//timeline.push(expt2);
 
 var s2t1 = {
           type: jsPsychHtmlSliderResponse,
@@ -773,7 +792,7 @@ const expt3 = {
         ],
     randomize_order: true
 }
-timeline.push(expt3);
+//timeline.push(expt3);
 
 
 var s3t1 = {
@@ -792,19 +811,20 @@ var s3t1 = {
 
 
 // **OUTRO**
-  var debrief = {
+var debrief = {
         type: jsPsychInstructions,
         pages: [
             '<p style="font-size: 24px;"><strong>Debrief</strong></p>' +
-            '<p>Thank you so much for helping us with this study!</p>' +
-            '<p>[to be added]</p>' +
-            '<p>Next up, we have a few final questions about yourself and your experience today.</p>'
+            '<p>Thank you so much for helping us with this study!' +
+            '</p><p>In this study, we asked you questions about change in energy and subjective difficulty of tasks.' +
+            '</p><p>The goal was to study your intuitions about how energy states of others can change' +
+            '</p><p>depending on the activities they do, and how their energy states interact with costs of actions.'+
+            '</p><p>Next up, we have a few final questions about yourself and your experience today.</p>'
         ],
         show_clickable_nav: true,
         button_label_next: 'Next'
         };
-  timeline.push(debrief);
-
+timeline.push(debrief);
 
         var feedback_demographics = {
             type: jsPsychSurveyHtmlForm,
@@ -884,7 +904,17 @@ var s3t1 = {
             }
         };
         timeline.push(feedback_demographics);
-jsPsych.run(timeline);
 
+  jsPsych.run(timeline);
+
+//var all_data = jsPsych.data.get();
+ //console.log(all_data.csv());
+
+ function saveData(name, data){
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', 'write_data.php'); // 'write_data.php' is the path to the php file described above.
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.send(JSON.stringify({filedata: data}));
+}
   </script>
 </html>
