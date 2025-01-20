@@ -28,8 +28,8 @@
   <script>
     var jsPsych = initJsPsych({
     override_safe_mode: true,
-    show_progress_bar: true,
-    on_finish: function(){ saveData(jsPsych.data.get().csv()); }
+    show_progress_bar: true
+   // on_finish: function(){ saveData(jsPsych.data.get().csv()); }
 });
 
 
@@ -45,34 +45,33 @@ var duration = '10 minutes';
     var amount = '$2.50';
     var consent = {
         type: jsPsychHtmlButtonResponse,
-        stimulus: '<p><b>Consent Form</b></p> <div style="text-align:left;' +
-            'background-color:lightblue; padding:2vw; max-width:80vw;">' +
-            '<p><b>Purpose:</b> The purpose of this study is to understand ' +
+        stimulus: '<p><b>Consent Form</b></p> <div style="text-align:left; background-color:lightblue; padding:2vw; max-width:80vw;">' +
+            '<p style="text-align:left;"><b>Purpose:</b> The purpose of this study is to understand ' +
             'how people think about actions of others.</p>' +
-            '<p><b>Procedures:</b> In this study, you will read sentences, ' +
+            '<p style="text-align:left;"><b>Procedures:</b> In this study, you will read sentences, ' +
             'see pictures, and use sliders to answer simple questions ' +
             'about them. This study should take approximately ' + duration + 
-            '</p><p><b>Participation:</b> Participation in this study is ' +
+            '</p><p style="text-align:left;"><b>Participation:</b> Participation in this study is ' +
             'voluntary. If you decide to join now, you can change your mind ' +
             'later. ' +
-            '</p><p><b>Payment:</b> You will be paid $15.00/hour ' +
+            '</p><p style="text-align:left;"><b>Payment:</b> You will be paid $15.00/hour ' +
             'for participating in this study. Given the estimated duration of ' +
             duration + ', your payment will amount to ' + amount + '.</p>' +
-            '<p><b>Risks and benefits:</b> There are no risks associated ' +
+            '<p style="text-align:left;"><b>Risks and benefits:</b> There are no risks associated ' +
             'with participating in this study. There are no direct benefits ' +
-            'associated with participating in this study. </p><p><b>Use of ' +
+            'associated with participating in this study. </p><p style="text-align:left;"><b>Use of ' +
             'data by study researchers:</b> The research team led by Shari ' +
             'Liu at JHU will have access to your answers. ' +
-            '</p><p><b>Publication of results:</b> The results of the research ' +
+            '</p><p style="text-align:left;"><b>Publication of results:</b> The results of the research ' +
             'may be presented at scientific meetings or published in scientific ' +
             'journals. Your individual responses may be published. We will ' +
             'never publish your name, the date that you participated, and any other ' +
-            'information that could be used to identify you. </p><p><b>' +
+            'information that could be used to identify you. </p><p style="text-align:left;"><b>' +
             'Researcher contact information:</b> This study is run by Dr. ' +
             'Shari Liu at JHU. If you have any questions or concerns about ' +
             'this study, or in the very unlikely event of a research-related ' +
             'injury, please contact sliu199@jhu.edu. ' +
-            '</p><p><b>Research rights information:</b> If you have questions about ' +
+            '</p><p style="text-align:left;"><b>Research rights information:</b> If you have questions about ' +
             'your rights as a research participant or feel that you have not ' +
             'been treated fairly, please call the Homewood Institutional Review ' +
             'Board at Johns Hopkins University at (410) 516-6580. If you have ' +
@@ -93,7 +92,7 @@ var intro = {
   stimulus: `
         <p><b>Welcome to the study! </b><p>
           <br> <p> In this study, you will be asked to predict a person's energy states after certain activities using sliders.</p>
-          <p>You will start with a short tutorial on the slider, followed by the task. <p><br>`,
+          <br><p>You will start with a short tutorial on the slider, followed by the task. <p><br>`,
   choices: ['Continue']
 }
 
@@ -777,7 +776,6 @@ const expt3 = {
     randomize_order: true
 }
 
-
 var s3t1 = {
           type: jsPsychHtmlSliderResponse,
     stimulus: `<div style="text-align: center; width:800px;">
@@ -798,11 +796,11 @@ var debrief = {
         type: jsPsychInstructions,
         pages: [
             '<p style="font-size: 24px;"><strong>Debrief</strong></p>' +
-            '<p>Thank you so much for helping us with this study!' +
-            '</p><p>In this study, we asked you questions about change in energy and subjective difficulty of tasks.' +
-            '</p><p>The goal was to study your intuitions about how energy states of others can change' +
-            '</p><p>depending on the activities they do, and how their energy states interact with costs of actions.'+
-            '</p><p>Next up, we have a few final questions about yourself and your experience today.</p>'
+            '<p>Thank you so much for helping us with this study!</p>' +
+            '<br><p style = "max-width:800px;">In this study, we asked you questions about change in energy and subjective difficulty ' +
+            'of tasks. The goal was to study your intuitions about how energy states of others can change ' +
+            'depending on the activities they do.'+
+            '</p><br><p style = "max-width:800px;">Next up, we have a few final questions about yourself and your experience today.</p>'
         ],
         show_clickable_nav: true,
         button_label_next: 'Next'
