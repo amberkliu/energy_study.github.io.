@@ -11,9 +11,9 @@
     <script src="https://unpkg.com/@jspsych/plugin-video-button-response@2.0.0"></script>
     <script src="https://unpkg.com/@jspsych/plugin-instructions@2.0.1"></script>
     <script src="https://unpkg.com/@jspsych/plugin-survey-html-form@2.0.1"></script>
+    <script src="https://unpkg.com/@jspsych-contrib/plugin-pipe"></script>
     <link href="https://unpkg.com/jspsych@8.0.3/css/jspsych.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="slider.css">
-    <script src="jatos.js"></script>
   </head>
   <style>
     p {
@@ -32,16 +32,14 @@
     on_finish: function(){ saveData(jsPsych.data.get().csv()); }
 });
 
-var timeline = [];
 
-/* preload images 
+const subject_id = jsPsych.randomization.randomID(10);
+const filename = `${subject_id}.csv`;
+            
 var preload = {
       type: jsPsychPreload,
-      images: ['img/full_bar.png','img/empty_bar.png','img/half_bar.png','img/jump.png','img/sit.png'],
-      video:['video/bar_decrease.mp4','video/bar_increase.mp4']
+      auto_preload:true
     };
-    timeline.push(preload);
-*/
 
 var duration = '10 minutes';
     var amount = '$2.50';
@@ -89,8 +87,6 @@ var duration = '10 minutes';
         }
         }
     };
-    timeline.push(consent);
-
 
 var intro = {
   type: jsPsychHtmlButtonResponse,
@@ -100,7 +96,6 @@ var intro = {
           <p>You will start with a short tutorial on the slider, followed by the task. <p><br>`,
   choices: ['Continue']
 }
-timeline.push(intro);
 
 var intro_energybar = {
   type: jsPsychHtmlButtonResponse,
@@ -110,7 +105,6 @@ var intro_energybar = {
           <br><br> <p> Some things make us tired, while other things make us less tired. As a result, the energy bar can go up and down. <p>`,
   choices: ['Continue']
 }
-timeline.push(intro_energybar);
 
 var label1 = {
   type: jsPsychHtmlButtonResponse,
@@ -121,7 +115,6 @@ var label1 = {
         <br><br>`,
   choices: ['Continue']
 }
-timeline.push(label1);
 
 var label2 = {
   type: jsPsychHtmlButtonResponse,
@@ -132,7 +125,6 @@ var label2 = {
         <br><br>`,
   choices: ['Continue']
 }
-timeline.push(label2);
 
 var label3 = {
   type: jsPsychHtmlButtonResponse,
@@ -143,7 +135,6 @@ var label3 = {
         <br><br>`,
   choices: ['Continue']
 }
-timeline.push(label3);
 
 var label4 = {
   type: jsPsychHtmlButtonResponse,
@@ -154,7 +145,6 @@ var label4 = {
         <br><br>`,
   choices: ['Continue']
 }
-timeline.push(label4);
 
 var label5 = {
   type: jsPsychHtmlButtonResponse,
@@ -165,7 +155,6 @@ var label5 = {
         <br><br>`,
   choices: ['Continue']
 }
-timeline.push(label5);
 
 
 var bar_change_intro1 = {
@@ -177,7 +166,6 @@ var bar_change_intro1 = {
         </div><br><br>`,
   choices: ['Continue']
 }
-timeline.push(bar_change_intro1);
 
 var bar_change_intro2 = {
   type: jsPsychHtmlButtonResponse,
@@ -189,7 +177,6 @@ var bar_change_intro2 = {
         </div><br><br>`,
   choices: ['Continue']
 }
-timeline.push(bar_change_intro2);
 
 var energy_comp_check1 = {
   type: jsPsychHtmlSliderResponse,
@@ -216,7 +203,6 @@ var energy_comp_check1 = {
       data.correct = false; 
     }}
 }
-timeline.push(energy_comp_check1);
 
 var energy_feedback1 = {
   type: jsPsychHtmlButtonResponse,
@@ -232,7 +218,6 @@ var energy_feedback1 = {
 },
   choices: ['Continue']
 }
-timeline.push(energy_feedback1);
 
 var energy_comp_check2 = {
   type: jsPsychHtmlSliderResponse,
@@ -257,7 +242,6 @@ var energy_comp_check2 = {
       data.correct = false; 
     }}
 }
-timeline.push(energy_comp_check2);
 
 var energy_feedback2 = {
   type: jsPsychHtmlButtonResponse,
@@ -273,7 +257,6 @@ var energy_feedback2 = {
 },
   choices: ['Continue']
 }
-timeline.push(energy_feedback2);
 
 var energy_comp_check3 = {
   type: jsPsychHtmlSliderResponse,
@@ -298,7 +281,6 @@ var energy_comp_check3 = {
       data.correct = false; 
     }}
 }
-timeline.push(energy_comp_check3);
 
 var energy_feedback3 = {
   type: jsPsychHtmlButtonResponse,
@@ -314,7 +296,6 @@ var energy_feedback3 = {
 },
   choices: ['Continue']
 }
-timeline.push(energy_feedback3);
 
 /* multiple-choice comp check
 var check = {
@@ -324,7 +305,7 @@ var check = {
     /*button_html: '<img src="%choice%" style="width:100px; padding: 20px;"></img>'* /
     button_html: (choice) => `<img src=${choice} style="width:300px; padding: 20px;cursor: pointer;"></img>`
 };
-timeline.push(check);*/
+//timeline.push(check);*/
 
 var intro_difficulty_bar = {
   type: jsPsychHtmlButtonResponse,
@@ -334,7 +315,6 @@ var intro_difficulty_bar = {
           <div><img src="img/difficultybar_w_anchors.png" width="600" height="110" ></img></div>`,
   choices: ['Continue']
 }
-//timeline.push(intro_difficulty_bar);
 
 var smiley1 = {
   type: jsPsychHtmlButtonResponse,
@@ -343,7 +323,6 @@ var smiley1 = {
         <br><img src="img/smiley1.png" width="600" height="108"></img>`,
   choices: ['Continue']
 }
-//timeline.push(smiley1);
 
 var smiley2 = {
   type: jsPsychHtmlButtonResponse,
@@ -352,7 +331,6 @@ var smiley2 = {
         <br><img src="img/smiley2.png" width="600" height="108"></img>`,
   choices: ['Continue']
 }
-//timeline.push(smiley2);
 
 var smiley3 = {
   type: jsPsychHtmlButtonResponse,
@@ -361,7 +339,6 @@ var smiley3 = {
         <br><img src="img/smiley3.png" width="600" height="108"></img>`,
   choices: ['Continue']
 }
-//timeline.push(smiley3);
 
 var smiley4 = {
   type: jsPsychHtmlButtonResponse,
@@ -370,7 +347,6 @@ var smiley4 = {
         <br><img src="img/smiley4.png" width="600" height="108"></img>`,
   choices: ['Continue']
 }
-//timeline.push(smiley4);
 
 var smiley5 = {
   type: jsPsychHtmlButtonResponse,
@@ -379,7 +355,6 @@ var smiley5 = {
         <br><img src="img/smiley5.png" width="600" height="108"></img>`,
   choices: ['Continue']
 }
-//timeline.push(smiley5);
 
 var diffbar_comp_check1 = {
   type: jsPsychHtmlSliderResponse,
@@ -402,7 +377,6 @@ var diffbar_comp_check1 = {
       data.correct = false; 
     }}
 }
-//timeline.push(diffbar_comp_check1);
 
 var diffbar_feedback1 = {
   type: jsPsychHtmlButtonResponse,
@@ -418,7 +392,6 @@ var diffbar_feedback1 = {
 },
   choices: ['Continue']
 }
-//timeline.push(diffbar_feedback1);
 
 var diffbar_comp_check2 = {
   type: jsPsychHtmlSliderResponse,
@@ -441,7 +414,6 @@ var diffbar_comp_check2 = {
       data.correct = false; 
     }}
 }
-//timeline.push(diffbar_comp_check2);
 
 var diffbar_feedback2 = {
   type: jsPsychHtmlButtonResponse,
@@ -457,7 +429,6 @@ var diffbar_feedback2 = {
 },
   choices: ['Continue']
 }
-//timeline.push(diffbar_feedback2);
 
 var diffbar_comp_check3 = {
   type: jsPsychHtmlSliderResponse,
@@ -480,7 +451,6 @@ var diffbar_comp_check3 = {
       data.correct = false; 
     }}
 }
-//timeline.push(diffbar_comp_check3);
 
 var diffbar_feedback3 = {
   type: jsPsychHtmlButtonResponse,
@@ -496,7 +466,6 @@ var diffbar_feedback3 = {
 },
   choices: ['Continue']
 }
-//timeline.push(diffbar_feedback3);
 
 
 var transition_pilot = {
@@ -508,7 +477,6 @@ var transition_pilot = {
       <p><br>To proceed to the task, please click "Continue". </p>`,
     choices: ['Continue']
 }
-timeline.push(transition_pilot);
 
 var transition1 = {
   type: jsPsychHtmlButtonResponse,
@@ -520,7 +488,6 @@ var transition1 = {
         <p><br>To proceed to the first task, please click "Continue". </p>`,
     choices: ['Continue']
 }
-//timeline.push(transition1);
 
 var expt1intro1 = {
   type: jsPsychHtmlButtonResponse,
@@ -541,7 +508,6 @@ var expt1intro1 = {
         <div><img src="img/halfbar_w_anchors.png" width="630" height="130"></img></div>`,
     choices: ['Continue']
 }
-    timeline.push(expt1intro1);
 
 var expt1intro2 = {
   type: jsPsychHtmlButtonResponse,
@@ -552,7 +518,6 @@ var expt1intro2 = {
      <p> Your job is to think about how different activities will affect his energy!</p>`,
     choices: ['Continue']
 }
-    timeline.push(expt1intro2);
 
 /*
 var sliderdemo = {
@@ -654,7 +619,6 @@ const expt1 = {
     ],
     randomize_order: true
 }
-timeline.push(expt1);
 
 var transition2 = {
   type: jsPsychHtmlButtonResponse,
@@ -666,7 +630,6 @@ var transition2 = {
         <p><br>To proceed to the second task, please click "Continue". </p>`,
     choices: ['Continue']
 }
-//timeline.push(transition2);
 
 
 const expt2 = {
@@ -732,7 +695,6 @@ const expt2 = {
           ],
     randomize_order: true
 }
-//timeline.push(expt2);
 
 var s2t1 = {
           type: jsPsychHtmlSliderResponse,
@@ -758,7 +720,6 @@ var transition3 = {
         <p><br>To proceed to the last task, please click "Continue". </p>`,
     choices: ['Continue']
 }
-//timeline.push(transition3);
 
 const expt3 = {
     timeline: [
@@ -815,7 +776,6 @@ const expt3 = {
         ],
     randomize_order: true
 }
-//timeline.push(expt3);
 
 
 var s3t1 = {
@@ -847,7 +807,6 @@ var debrief = {
         show_clickable_nav: true,
         button_label_next: 'Next'
         };
-timeline.push(debrief);
 
         var feedback_demographics = {
             type: jsPsychSurveyHtmlForm,
@@ -926,18 +885,46 @@ timeline.push(debrief);
                 data.ethnicity = ""}
             }
         };
-        timeline.push(feedback_demographics);
-
-  jsPsych.run(timeline);
 
 //var all_data = jsPsych.data.get();
- //console.log(all_data.csv());
+//console.log(all_data.csv());
 
- function saveData(name, data){
-  var xhr = new XMLHttpRequest();
-  xhr.open('POST', 'write_data.php'); // 'write_data.php' is the path to the php file described above.
-  xhr.setRequestHeader('Content-Type', 'application/json');
-  xhr.send(JSON.stringify({filedata: data}));
-}
+const save_data = {
+                type: jsPsychPipe,
+                action: "save",
+                experiment_id: "LBNa7wAAykgA",
+                filename: filename,
+                data_string: ()=>jsPsych.data.get().csv()
+              };
+
+const timeline = [
+            preload, 
+            consent,
+            intro,
+            intro_energybar,
+            label1,
+            label2,
+            label3,
+            label4,
+            label5,
+            bar_change_intro1,
+            bar_change_intro2,
+            energy_comp_check1,
+            energy_feedback1,
+            energy_comp_check2,
+            energy_feedback2,
+          energy_comp_check3,
+          energy_feedback3,
+          transition_pilot,
+          expt1intro1,
+          expt1intro2,
+          expt1,
+          debrief,
+          feedback_demographics,
+          save_data
+        ];
+      
+jsPsych.run(timeline);
+  
   </script>
 </html>
