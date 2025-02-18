@@ -30,8 +30,7 @@
     override_safe_mode: true,
     show_progress_bar: true,
     on_finish: function() {
-      jsPsych.data.displayData();
-              //  window.location = "https://connect.cloudresearch.com/participant/project/B16BD2E52E/complete";
+              window.location = "https://connect.cloudresearch.com/participant/project/B16BD2E52E/complete";
             },
 });
 
@@ -49,8 +48,8 @@ jsPsych.data.addProperties({
 });
 
 /*experiment variables*/
-const mturk_pilot_mode = false
-const data_collection = true
+const mturk_pilot_mode = true
+const data_collection = false
 
         /*capture info from mturk/connect, except in test mode*/
         if(mturk_pilot_mode) { 
@@ -135,17 +134,17 @@ var intro_energybar = {
   type: jsPsychHtmlButtonResponse,
   stimulus: `
         <p>This is an energy bar. It represents a person's energy level.<p>
-          <br><img src="img/fullbar_w_anchors.png" width="600" height="130" ></img>
-          <br><br> <p> Some things make us tired, while other things make us less tired. As a result, the energy bar can go up and down. <p>`,
+          <br><img src="img/fullbar_w_anchors.png" width="660" height="130" ></img>
+          <br><br> <p> Some things make us tired, while other things make us more energetic. As a result, the energy bar can go up and down. <p>`,
   choices: ['Continue']
 }
 
 var label1 = {
   type: jsPsychHtmlButtonResponse,
   stimulus: `
-  <div><p>When someone is <b>really tired</b>, their energy bar looks like this: <p></div>
+  <div><p>When someone is <b>extremely tired</b>, their energy bar looks like this: <p></div>
         <br><img src="img/level1.png" width="605" height="115"></img>
-        <div><img src="img/verbal_labels.png" width="630" height="17"></img></div>
+        <div><img src="img/energy_labels.png" width="670" height="19"></img></div>
         <br><br>`,
   choices: ['Continue']
 }
@@ -153,9 +152,9 @@ var label1 = {
 var label2 = {
   type: jsPsychHtmlButtonResponse,
   stimulus: `
-  <div><p>When someone is <b>a little tired</b>, their energy bar looks like this: <p></div>
+  <div><p>When someone is <b>somewhat tired</b>, their energy bar looks like this: <p></div>
         <br><img src="img/level2.png" width="605" height="115"></img>
-        <div><img src="img/verbal_labels.png" width="630" height="17"></img></div>
+        <div><img src="img/energy_labels.png" width="670" height="19"></img></div>
         <br><br>`,
   choices: ['Continue']
 }
@@ -163,9 +162,9 @@ var label2 = {
 var label3 = {
   type: jsPsychHtmlButtonResponse,
   stimulus: `
-  <div><p>When someone is <b>feeling OK</b>, their energy bar looks like this: <p></div>
+  <div><p>When someone is feeling <b>neutral</b>, their energy bar looks like this: <p></div>
         <br><img src="img/level3.png" width="605" height="115"></img>
-        <div><img src="img/verbal_labels.png" width="630" height="17"></img></div>
+        <div><img src="img/energy_labels.png" width="670" height="19"></img></div>
         <br><br>`,
   choices: ['Continue']
 }
@@ -173,9 +172,9 @@ var label3 = {
 var label4 = {
   type: jsPsychHtmlButtonResponse,
   stimulus: `
-  <div><p>When someone is <b>not tired</b>, their energy bar looks like this: <p></div>
+  <div><p>When someone is <b>somewhat energetic</b>, their energy bar looks like this: <p></div>
         <br><img src="img/level4.png" width="605" height="115"></img>
-        <div><img src="img/verbal_labels.png" width="630" height="17"></img></div>
+        <div><img src="img/energy_labels.png" width="670" height="19"></img></div>
         <br><br>`,
   choices: ['Continue']
 }
@@ -183,9 +182,9 @@ var label4 = {
 var label5 = {
   type: jsPsychHtmlButtonResponse,
   stimulus: `
-  <div><p>When someone is <b>not tired at all</b>, their energy bar looks like this: <p></div>
+  <div><p>When someone is <b>extremely energetic</b>, their energy bar looks like this: <p></div>
         <br><img src="img/level5.png" width="605" height="115"></img>
-        <div><img src="img/verbal_labels.png" width="630" height="17"></img></div>
+        <div><img src="img/energy_labels.png" width="670" height="19"></img></div>
         <br><br>`,
   choices: ['Continue']
 }
@@ -204,7 +203,7 @@ var bar_change_intro1 = {
 var bar_change_intro2 = {
   type: jsPsychHtmlButtonResponse,
   stimulus: `<div>
-    <p>When someone does something that makes them <b>much less tired</b> - their energy goes all the way up!</p>
+    <p>When someone does something that makes them <b>really energetic</b> - their energy goes all the way up!</p>
         </div>
         <br><div>
         <video src="video/energy_up.mp4" width="1150" height="130" autoplay muted></video>
@@ -217,13 +216,13 @@ var energy_comp_check1 = {
   stimulus: `<div>
     <p>Let's make sure we understand how the energy bar works!</p>
         </div><br>
-    <p> If someone is <b>a little tired</b> right now, what would their energy bar look like?</p>
+    <p> If someone is feeling <b>a little tired</b> right now, what would their energy bar look like?</p>
     <br>
     <img src="img/anchoring_pics.png" width="630" height="70"></img>`,
     require_movement: true,
     slider_start:0,
     slider_width: 600,
-    labels: ['Really tired','Feeling OK','Not tired at all'],
+    labels: ['Extremely tired','Neutral','Extremely energetic'],
     prompt: "<p>(Drag the slider to indicate your answer)</p>",
     css_classes: ['energy-slider'],
     data: {
@@ -246,8 +245,8 @@ var energy_feedback1 = {
       return `<p style="color: green;">Correct!</p>`
     } else {
       return `<p style="color: red;">Wrong.</p>
-      <p>If someone is <b>a little tired</b>, the slider should be on the left side.</p>
-      <br><img src="img/energybar_left.png" width="630" height="100"></img>` 
+      <p>If someone is feeling <b>a little tired</b>, the slider should be on the left side.</p>
+      <br><img src="img/energybar_left.png" width="630" height="120"></img>` 
     }
 },
   choices: ['Continue']
@@ -258,12 +257,12 @@ var energy_comp_check2 = {
   stimulus: `<div>
     <p>Great!</p>
         </div><br>
-    <p> If someone is <b>feeling OK</b> right now, what would their energy bar look like? </p>
+    <p> If someone is feeling <b>neutral</b> right now, what would their energy bar look like? </p>
     <br><img src="img/anchoring_pics.png" width="630" height="70"></img>`,
     require_movement: true,
     slider_start:0,
     slider_width: 600,
-    labels: ['Really tired','Feeling OK','Not tired at all'],
+    labels: ['Extremely tired','Neutral','Extremely energetic'],
     prompt: "<p>(Drag the slider to indicate your answer)</p>",
     css_classes: ['energy-slider'],
     data: {
@@ -285,8 +284,8 @@ var energy_feedback2 = {
       return `<p style="color: green;">Correct!</p>`
     } else {
       return `<p style="color: red;">Wrong.</p>
-      <p>If someone is <b>feeling OK</b>, the slider should be near the middle of the bar.</p>
-      <br><img src="img/energybar_middle.png" width="630" height="100"></img>`
+      <p>If someone is feeling <b>neutral</b>, the slider should be near the middle of the bar.</p>
+      <br><img src="img/energybar_middle.png" width="630" height="120"></img>`
     }
 },
   choices: ['Continue']
@@ -297,12 +296,12 @@ var energy_comp_check3 = {
   stimulus: `<div>
     <p>Great!</p>
         </div><br>
-    <p> If someone is <b>feeling energetic</b> right now, what would their energy bar look like?</p>
+    <p> If someone is feeling <b>quite energetic</b> right now, what would their energy bar look like?</p>
     <br><img src="img/anchoring_pics.png" width="630" height="70"></img>`,
     require_movement: true,
     slider_start:0,
     slider_width: 600,
-    labels: ['Really tired', 'Feeling OK','Not tired at all'],
+    labels: ['Extremely tired','Neutral','Extremely energetic'],
     prompt: "<p>(Drag the slider to indicate your answer)</p>",
     css_classes: ['energy-slider'],
     data: {
@@ -324,8 +323,8 @@ var energy_feedback3 = {
       return `<p style="color: green;">Correct!</p>`
     } else {
       return `<p style="color: red;">Wrong.</p>
-      <p>If someone is <b>feeling energetic</b>, the slider should be on the right side.</p>
-      <br><img src="img/energybar_right.png" width="630" height="100"></img>` 
+      <p>If someone is feeling <b>quite energetic</b>, the slider should be on the right side.</p>
+      <br><img src="img/energybar_right.png" width="630" height="120"></img>` 
     }
 },
   choices: ['Continue']
@@ -346,47 +345,52 @@ var intro_difficulty_bar = {
   stimulus: `
         <p>This is a difficulty bar. It represents how hard it is for a person to perform an activity.<p>
           <br>
-          <div><img src="img/difficultybar_w_anchors.png" width="600" height="110" ></img></div>`,
+          <div><img src="img/difficultybar_w_anchors.png" width="670" height="125" ></img></div>`,
   choices: ['Continue']
 }
 
 var smiley1 = {
   type: jsPsychHtmlButtonResponse,
   stimulus: `
-  <div><p>When it is <b>not hard at all</b> to do something, the difficulty bar looks like this: <p></div>
-        <br><img src="img/smiley1.png" width="600" height="108"></img>`,
+  <div><p>When it feels <b>extremely easy</b> to do something, the difficulty bar looks like this: <p></div>
+        <br><img src="img/smiley1.png" width="600" height="108"></img>
+        <div><img src="img/diff_labels.png" width="670" height="24"></img></div>`,
   choices: ['Continue']
 }
 
 var smiley2 = {
   type: jsPsychHtmlButtonResponse,
   stimulus: `
-  <div><p>When it is <b>not hard</b> to do something, the difficulty bar looks like this: <p></div>
-        <br><img src="img/smiley2.png" width="600" height="108"></img>`,
+  <div><p>When it feels <b>somewhat easy</b> to do something, the difficulty bar looks like this: <p></div>
+        <br><img src="img/smiley2.png" width="600" height="108"></img>
+        <div><img src="img/diff_labels.png" width="670" height="24"></img></div>`,
   choices: ['Continue']
 }
 
 var smiley3 = {
   type: jsPsychHtmlButtonResponse,
   stimulus: `
-  <div><p>When it is <b>OK</b> to do something, the difficulty bar looks like this: <p></div>
-        <br><img src="img/smiley3.png" width="600" height="108"></img>`,
+  <div><p>When it feels <b>neutral</b> to do something, the difficulty bar looks like this: <p></div>
+        <br><img src="img/smiley3.png" width="600" height="108"></img>
+        <div><img src="img/diff_labels.png" width="670" height="24"></img></div>`,
   choices: ['Continue']
 }
 
 var smiley4 = {
   type: jsPsychHtmlButtonResponse,
   stimulus: `
-  <div><p>When it is <b>a little hard</b> to do something, the difficulty bar looks like this: <p></div>
-        <br><img src="img/smiley4.png" width="600" height="108"></img>`,
+  <div><p>When it feels <b>somewhat hard</b> to do something, the difficulty bar looks like this: <p></div>
+        <br><img src="img/smiley4.png" width="600" height="108"></img>
+        <div><img src="img/diff_labels.png" width="670" height="24"></img></div>`,
   choices: ['Continue']
 }
 
 var smiley5 = {
   type: jsPsychHtmlButtonResponse,
   stimulus: `
-  <div><p>When it is <b>really hard</b> to do something, the difficulty bar looks like this: <p></div>
-        <br><img src="img/smiley5.png" width="600" height="108"></img>`,
+  <div><p>When it feels <b>extremely hard</b> to do something, the difficulty bar looks like this: <p></div>
+        <br><img src="img/smiley5.png" width="600" height="108"></img>
+        <div><img src="img/diff_labels.png" width="670" height="24"></img></div>`,
   choices: ['Continue']
 }
 
@@ -395,13 +399,13 @@ var diffbar_comp_check1 = {
   stimulus: `<div>
     <p>Let's make sure we understand how the difficulty bar works!</p>
         </div><br>
-    <p> If it is <b>really hard</b> to do something, what would the difficulty bar look like?</p>
+    <p> If it feels <b>really hard</b> to do something, what would the difficulty bar look like?</p>
     <br>
     <img src="img/anchoring_smileys.png" width="640" height="64"></img>`,
     require_movement: true,
     slider_start:0,
     slider_width: 600,
-    labels: ['Not hard at all','OK','Really hard'],
+    labels: ['Extremely easy','Neutral','Extremely hard'],
     prompt: "<p>(Drag the slider to indicate your answer)</p>",
     css_classes: ['original-slider'],
     data: {
@@ -423,7 +427,7 @@ var diffbar_feedback1 = {
       return `<p style="color: green;">Correct!</p>`; 
     } else {
       return `<p style="color: red;">Wrong.</p>
-      <p>If it is <b>really hard</b> to do something, the slider should be near the right end of the bar.</p>
+      <p>If it feels <b>really hard</b> to do something, the slider should be near the right end of the bar.</p>
       <br><img src="img/diffbar_right.png" width="600" height="90"></img>` 
     }
 },
@@ -435,13 +439,13 @@ var diffbar_comp_check2 = {
   stimulus: `<div>
     <p>Great!</p>
         </div><br>
-    <p> If it is <b>not hard</b> to do something, what would the difficulty bar look like?</p>
+    <p> If it feels <b>quite easy</b> to do something, what would the difficulty bar look like?</p>
     <br>
     <img src="img/anchoring_smileys.png" width="640" height="64"></img>`,
     require_movement: true,
     slider_start:0,
     slider_width: 600,
-    labels: ['Not hard at all','OK','Really hard'],
+    labels: ['Extremely easy','Neutral','Extremely hard'],
     prompt: "<p>(Drag the slider to indicate your answer)</p>",
     css_classes: ['original-slider'],
     data: {
@@ -463,7 +467,7 @@ var diffbar_feedback2 = {
       return `<p style="color: green;">Correct!</p>`; 
     } else {
       return `<p style="color: red;">Wrong.</p>
-      <p>If it is <b>not hard</b> to do something, the slider should be on the left side.</p>
+      <p>If it feels <b>quite easy</b> to do something, the slider should be on the left side.</p>
       <br><img src="img/diffbar_left.png" width="600" height="90"></img>` 
     }
 },
@@ -475,13 +479,13 @@ var diffbar_comp_check3 = {
   stimulus: `<div>
     <p>Great!</p>
         </div><br>
-    <p> If it is <b>OK</b> to do something, what would the difficulty bar look like?</p>
+    <p> If it feels <b>neutral</b> to do something, what would the difficulty bar look like?</p>
     <br>
     <img src="img/anchoring_smileys.png" width="640" height="64"></img>`,
     require_movement: true,
     slider_start:0,
     slider_width: 600,
-    labels: ['Not hard at all','OK','Really hard'],
+    labels: ['Extremely easy','Neutral','Extremely hard'],
     prompt: "<p>(Drag the slider to indicate your answer)</p>",
     css_classes: ['original-slider'],
     data: {
@@ -503,7 +507,7 @@ var diffbar_feedback3 = {
       return `<p style="color: green;">Correct!</p>`; 
     } else {
       return `<p style="color: red;">Wrong.</p>
-      <p>If it is <b>OK</b> to do something, the slider should be near the middle of the bar.</p>
+      <p>If it feels <b>neutral</b> to do something, the slider should be near the middle of the bar.</p>
       <br><img src="img/diffbar_middle.png" width="600" height="90"></img>` 
     }
 },
@@ -608,7 +612,7 @@ const expt1 = {
         { trial:  `<div><p>If Adam goes off to <b>do his homework</b> for an hour, what do you think his energy bar will look like <b>afterwards</b>?</p>
           <br><div><img src="img/homework.jpg" width="200" height="200"></img> 
           <br><br></div><img src="img/anchoring_pics.png" width="630" height="70"></img>` },
-        { trial:  `<div><p>If Adam goes off to <b>learn letters of the alphabet</b> for an hour, what do you think his energy bar will look like <b>afterwards</b>?</p>
+        { trial:  `<div><p>If Adam goes off to <b>learn the letters of the alphabet</b> for an hour, what do you think his energy bar will look like <b>afterwards</b>?</p>
           <br><div><img src="img/alphabets.jpg" width="200" height="200"></img> 
           <br><br></div><img src="img/anchoring_pics.png" width="630" height="70"></img>` },
         { trial:  `<div><p>If Adam goes off to <b>solve math problems</b> for an hour, what do you think his energy bar will look like <b>afterwards</b>?</p>
@@ -670,30 +674,41 @@ let expt2_A = {
             require_movement: true,
             slider_start:0,
             slider_width: 600,
-            labels: ['Not hard at all', 'OK', 'Extremely hard'],
+            labels: ['Extremely easy','Neutral','Extremely hard'],
             prompt: "<p>(Drag the slider to indicate your answer)</p>",
             css_classes: ['original-slider'],
             data: {task: 'task2'}
 }],
 timeline_variables:[
-        { trial:  `<div><p>This is what Emma's energy bar looks like right now - she is <b>not tired at all</b>.</p></div>
-        <img src="img/fullbar_w_anchors.png" width="400" height="70" ></img>
-        <br><br><p>Emma is going to <b>spend an hour solving math problems</b> this afternoon. How <b>hard</b> do you think that would be for Emma?</p>
+        { trial:  `<div><p>Emma is 6 years old. This is what Emma's energy bar looks like right now - she is <b>extremely energetic</b>.</p></div>
+        <img src="img/fullbar_wo_anchors.png" width="400" height="70" ></img>
+        <br><p>Emma is going to <b>spend an hour solving math problems</b> this afternoon. How <b>hard</b> do you think that would be for Emma?</p>
         <img src="img/Emma.png" width="180" height="180" ></img>
         <br><img src="img/anchoring_smileys.png" width="640" height="64"></img>` },
-        { trial:  `<div><p>This is what Hiro's energy bar looks like right now - he is <b>not tired at all</b></p></div>
-        <img src="img/fullbar_w_anchors.png" width="400" height="70" ></img>
-        <br><br><p>Hiro is going to <b>spend an hour cleaning his house</b> this afternoon. How <b>hard</b> do you think that would be for Hiro?</p>
+        { trial:  `<div><p>Malik is 6 years old. This is what Malik's energy bar looks like right now - he is <b>extremely energetic</b>.</p></div>
+        <img src="img/fullbar_wo_anchors.png" width="400" height="70" ></img>
+        <br><p>Malik is going to <b>spend an hour practicing violin</b> this afternoon. How <b>hard</b> do you think that would be for Malik?</p>
+        <img src="img/Malik.png" width="180" height="180" ></img>
+        <br><img src="img/anchoring_smileys.png" width="640" height="64"></img>` },
+        { trial:  `<div><p>Nina is 6 years old. This is what Nina's energy bar looks like right now - she is <b>extremely energetic</b>.</p></div>
+        <img src="img/fullbar_wo_anchors.png" width="400" height="70" ></img>
+        <br><p>Nina is going to <b>spend an hour hiking</b> this afternoon. How <b>hard</b> do you think that would be for Nina?</p>
+        <img src="img/Nina.png" width="180" height="180" ></img>
+        <br><img src="img/anchoring_smileys.png" width="640" height="64"></img>` },
+
+        { trial:  `<div><p>Hiro is 6 years old. This is what Hiro's energy bar looks like right now - he is <b>extremely tired</b>.</p></div>
+        <img src="img/emptybar_wo_anchors.png" width="400" height="70" ></img>
+        <br><p>Hiro is going to <b>spend an hour cleaning his house</b> this afternoon. How <b>hard</b> do you think that would be for Hiro?</p>
         <img src="img/Hiro.png" width="180" height="180" ></img>
         <br><img src="img/anchoring_smileys.png" width="640" height="64"></img>` },
-        { trial:  `<div><p>This is what Nick's energy bar looks like right now - he is <b>really tired</b></p></div>
-        <img src="img/emptybar_w_anchors.png" width="400" height="70" ></img>
-        <br><br><p>Nick is going to <b>spend an hour practicing handwriting</b> this afternoon. How <b>hard</b> do you think that would be for Nick?</p>
+        { trial:  `<div><p>Nick is 6 years old. This is what Nick's energy bar looks like right now - he is <b>extremely tired</b>.</p></div>
+        <img src="img/emptybar_wo_anchors.png" width="400" height="70" ></img>
+        <br><p>Nick is going to <b>spend an hour working on handwriting</b> this afternoon. How <b>hard</b> do you think that would be for Nick?</p>
         <img src="img/Nick.png" width="180" height="180" ></img>
         <br><img src="img/anchoring_smileys.png" width="640" height="64"></img>` },
-        { trial:  `<div><p>This is what Mei's energy bar looks like right now - she is <b>really tired</b></p></div>
-        <img src="img/emptybar_w_anchors.png" width="400" height="70" ></img>
-        <br><br><p>Mei is going to <b>spend an hour running a race</b> this afternoon. How <b>hard</b> do you think that would be for Mei?</p>
+        { trial:  `<div><p>Mei is 6 years old. This is what Mei's energy bar looks like right now - she is <b>extremely tired</b>.</p></div>
+        <img src="img/emptybar_wo_anchors.png" width="400" height="70" ></img>
+        <br><p>Mei is going to <b>spend an hour running a race</b> this afternoon. How <b>hard</b> do you think that would be for Mei?</p>
         <img src="img/Mei.png" width="180" height="180" ></img>
         <br><img src="img/anchoring_smileys.png" width="640" height="64"></img>` },
 
@@ -711,31 +726,42 @@ let expt2_B = {
             require_movement: true,
             slider_start:0,
             slider_width: 600,
-            labels: ['Not hard at all', 'OK', 'Extremely hard'],
+            labels: ['Extremely easy','Neutral','Extremely hard'],
             prompt: "<p>(Drag the slider to indicate your answer)</p>",
             css_classes: ['original-slider'],
             data: {task: 'task2'}
 }],
 timeline_variables:[
-      { trial:  `<div><p>This is what Sophie's energy bar looks like right now - she is <b>not tired at all</b>.</p></div>
-        <img src="img/fullbar_w_anchors.png" width="400" height="70" ></img>
-        <br><br><p>Sophie is going to <b>spend an hour climbing up stairs</b> this afternoon. How <b>hard</b> do you think that would be for Sophie?</p>
+      { trial:  `<div><p>Sophie is 6 years old. This is what Sophie's energy bar looks like right now - she is <b>extremely tired</b>.</p></div>
+        <img src="img/emptybar_wo_anchors.png" width="400" height="70" ></img>
+        <br><p>Sophie is going to <b>spend an hour jumping up and down</b> this afternoon. How <b>hard</b> do you think that would be for Sophie?</p>
         <img src="img/Sophie.png" width="180" height="180" ></img>
         <br><img src="img/anchoring_smileys.png" width="640" height="64"></img>` },
-        { trial:  `<div><p>This is what Chen's energy bar looks like right now - he is <b>not tired at all</b>.</p></div>
-        <img src="img/fullbar_w_anchors.png" width="400" height="70" ></img>
-        <br><br><p>Chen is going to <b>spend an hour learning alphabets </b> this afternoon. How <b>hard</b> do you think that would be for Chen?</p>
+        { trial:  `<div><p>Chen is 6 years old. This is what Chen's energy bar looks like right now - he is <b>extremely tired</b>.</p></div>
+        <img src="img/emptybar_wo_anchors.png" width="400" height="70" ></img>
+        <br><p>Chen is going to <b>spend an hour practicing sounding out words from flashcards</b> this afternoon. How <b>hard</b> do you think that would be for Chen?</p>
         <img src="img/Chen.png" width="180" height="180" ></img>
         <br><img src="img/anchoring_smileys.png" width="640" height="64"></img>` },
-        { trial:  `<div><p>This is what Maya's energy bar looks like right now - she is <b>really tired</b></p></div>
-        <img src="img/emptybar_w_anchors.png" width="400" height="70" ></img>
-        <br><br><p>Maya is going to <b>spend an hour doing homework </b> this afternoon. How <b>hard</b> do you think that would be for Maya?</p>
-        <img src="img/Maya.png" width="180" height="180" ></img>
+        { trial:  `<div><p>Eric is 6 years old. This is what Eric's energy bar looks like right now - he is <b>extremely tired</b>.</p></div>
+        <img src="img/emptybar_wo_anchors.png" width="400" height="70" ></img>
+        <br><p>Eric is going to <b>spend an hour doing homework</b> this afternoon. How <b>hard</b> do you think that would be for Eric?</p>
+        <img src="img/Eric.png" width="180" height="180" ></img>
         <br><img src="img/anchoring_smileys.png" width="640" height="64"></img>` },
-        { trial:  `<div><p>This is what Jack's energy bar looks like right now - he is <b>really tired</b></p></div>
-        <img src="img/emptybar_w_anchors.png" width="400" height="70" ></img>
-        <br><br><p>Jack is going to <b>spend an hour swimming</b> this afternoon. How <b>hard</b> do you think that would be for Jack?</p>
-        <img src="img/Jack.png" width="180" height="180" ></img>
+       
+        { trial:  `<div><p>Akira is 6 years old. This is what Akira's energy bar looks like right now - she is <b>extremely energetic</b>.</p></div>
+        <img src="img/fullbar_wo_anchors.png" width="400" height="70" ></img>
+        <br><p>Akira is going to <b>spend an hour swimming</b> this afternoon. How <b>hard</b> do you think that would be for Akira?</p>
+        <img src="img/Akira.png" width="180" height="180" ></img>
+        <br><img src="img/anchoring_smileys.png" width="640" height="64"></img>` },
+        { trial:  `<div><p>Ethan is 6 years old. This is what Ethan's energy bar looks like right now - he is <b>extremely energetic</b>.</p></div>
+        <img src="img/fullbar_wo_anchors.png" width="400" height="70" ></img>
+        <br><p>Ethan is going to <b>spend an hour climbing up stairs</b> this afternoon. How <b>hard</b> do you think that would be for Ethan?</p>
+        <img src="img/Ethan.png" width="180" height="180" ></img>
+        <br><img src="img/anchoring_smileys.png" width="640" height="64"></img>` },
+        { trial:  `<div><p>Jasmine is 6 years old. This is what Jasmine's energy bar looks like right now - she is <b>extremely energetic</b>.</p></div>
+        <img src="img/fullbar_wo_anchors.png" width="400" height="70" ></img>
+        <br><p>Jasmine is going to <b>spend an hour learning letters of the alphabet</b> this afternoon. How <b>hard</b> do you think that would be for Jasmine?</p>
+        <img src="img/Jasmine.png" width="180" height="180" ></img>
         <br><img src="img/anchoring_smileys.png" width="640" height="64"></img>` },
 
         { trial:  `<div><p> Please drag the slider to the middle, and click "Continue".</p>
@@ -752,29 +778,39 @@ let expt3_A = {
             require_movement: true,
             slider_start:0,
             slider_width: 600,
-            labels: ['Really tired','Feeling OK','Not tired at all'],
+            labels: ['Extremely tired','Neutral','Extremely energetic'],
             prompt: "<p>(Drag the slider to indicate your answer)</p>",
             css_classes: ['energy-slider'],
             data: {task: 'task3'}
         }
     ],
     timeline_variables: [
-      { trial:  `<p>  Eric is going to <b>spend an hour doing homework </b> this afternoon. Eric thought, "Wow, that is going to be <b>so hard</b> for me!". </p>
+      { trial:  `<p>  Eric, a 6-year-old, is going to <b>spend an hour doing homework</b> this afternoon. Eric thought, "Wow, that is going to be <b>so easy</b> for me!". </p>
         <img src="img/Eric.png" width="200" height="200" ></img>
         <p>What do you think his energy bar looks like right now?</p>
         <br><img src="img/anchoring_pics.png" width="630" height="70"></img>`},
-        { trial:  `<p>  Ethan is going to <b>spend an hour climbing up stairs</b> this afternoon. Ethan thought, "Wow, that is going to be <b>so easy</b> for me!". </p>
+        { trial:  `<p>  Chen, a 6-year-old, is going to <b>spend an hour practicing sounding out words from flashcards</b> this afternoon. Chen thought, "Wow, that is going to be <b>so easy</b> for me!". </p>
+        <img src="img/Chen.png" width="200" height="200" ></img>
+        <p>What do you think his energy bar looks like right now?</p>
+        <br><img src="img/anchoring_pics.png" width="630" height="70"></img>`},
+        { trial:  `<p>  Sophie, a 6-year-old, is going to <b>spend an hour jumping up and down</b> this afternoon. Sophie thought, "Wow, that is going to be <b>so easy</b> for me!". </p>
+        <img src="img/Sophie.png" width="200" height="200" ></img>
+        <p>What do you think her energy bar looks like right now?</p>
+        <br><img src="img/anchoring_pics.png" width="630" height="70"></img>`},
+
+        { trial:  `<p>  Ethan, a 6-year-old, is going to <b>spend an hour climbing up stairs</b> this afternoon. Ethan thought, "Wow, that is going to be <b>so hard</b> for me!". </p>
         <img src="img/Ethan.png" width="200" height="200" ></img>
         <p>What do you think his energy bar looks like right now?</p>
         <br><img src="img/anchoring_pics.png" width="630" height="70"></img>`},
-        { trial:  `<p>  Akira is going to <b>spend an hour swimming</b> this afternoon. Akira thought, "Wow, that is going to be <b>so hard</b> for me!". </p>
+        { trial:  `<p>  Akira, a 6-year-old, is going to <b>spend an hour swimming</b> this afternoon. Akira thought, "Wow, that is going to be <b>so hard</b> for me!". </p>
         <img src="img/Akira.png" width="200" height="200" ></img>
         <p>What do you think her energy bar looks like right now?</p>
         <br><img src="img/anchoring_pics.png" width="630" height="70"></img>`},
-        { trial:  `<p>  Jasmine is going to <b>spend an hour learning alphabets</b> this afternoon. Jasmine thought, "Wow, that is going to be <b>so easy</b> for me!". </p>
+        { trial:  `<p>  Jasmine, a 6-year-old, is going to <b>spend an hour learning the letters of the alphabet</b> this afternoon. Jasmine thought, "Wow, that is going to be <b>so hard</b> for me!". </p>
         <img src="img/Jasmine.png" width="200" height="200" ></img>
         <p>What do you think her energy bar looks like right now?</p>
         <br><img src="img/anchoring_pics.png" width="630" height="70"></img>`},
+
         { trial:  `<div><p> Please drag the slider all the way to the right, and click "Continue".</p>
           <br><br></div><img src="img/anchoring_pics.png" width="630" height="70"></img>` }],
         randomize_order: true
@@ -788,29 +824,41 @@ let expt3_B = {
             require_movement: true,
             slider_start:0,
             slider_width: 600,
-            labels: ['Really tired','Feeling OK','Not tired at all'],
+            labels: ['Extremely tired','Neutral','Extremely energetic'],
             prompt: "<p>(Drag the slider to indicate your answer)</p>",
             css_classes: ['energy-slider'],
             data: {task: 'task3'}
         }
     ],
     timeline_variables: [
-    { trial:  `<p>  Olivia is going to <b>spend an hour practicing handwriting</b> this afternoon. Olivia thought, "Wow, that is going to be <b>so hard</b> for me!". </p>
-        <img src="img/Olivia.png" width="200" height="200" ></img>
+    { trial:  `<p>  Mei, a 6-year-old, is going to <b>spend an hour running a race</b> this afternoon. Mei thought, "Wow, that is going to be <b>so easy</b> for me!". </p>
+        <img src="img/Mei.png" width="200" height="200" ></img>
         <p>What do you think her energy bar looks like right now?</p>
         <br><img src="img/anchoring_pics.png" width="630" height="70"></img>`},
-        { trial:  `<p>  Nina is going to <b>spend an hour cleaning the house </b> this afternoon. Nina thought, "Wow, that is going to be <b>so easy</b> for me!". </p>
+        { trial:  `<p>  Hiro, a 6-year-old, is going to <b>spend an hour cleaning the house</b> this afternoon. Hiro thought, "Wow, that is going to be <b>so easy</b> for me!". </p>
+        <img src="img/Hiro.png" width="200" height="200" ></img>
+        <p>What do you think his energy bar looks like right now?</p>
+        <br><img src="img/anchoring_pics.png" width="630" height="70"></img>`},
+        { trial:  `<p>  Nick, a 6-year-old, is going to <b>spend an hour working on handwriting</b> this afternoon. Nick thought, "Wow, that is going to be <b>so easy</b> for me!". </p>
+        <img src="img/Nick.png" width="200" height="200" ></img>
+        <p>What do you think his energy bar looks like right now?</p>
+        <br><img src="img/anchoring_pics.png" width="630" height="70"></img>`},
+
+
+        { trial:  `<p>  Nina, a 6-year-old, is going to <b>spend an hour hiking</b> this afternoon. Nina thought, "Wow, that is going to be <b>so hard</b> for me!". </p>
         <img src="img/Nina.png" width="200" height="200" ></img>
         <p>What do you think her energy bar looks like right now?</p>
         <br><img src="img/anchoring_pics.png" width="630" height="70"></img>`},
-        { trial:  `<p>  Malik is going to <b>spend an hour running a race</b> this afternoon. Malik thought, "Wow, that is going to be <b>so hard</b> for me!". </p>
+        { trial:  `<p>  Emma, a 6-year-old, is going to <b>spend an hour solving math problems</b> this afternoon. Emma thought, "Wow, that is going to be <b>so hard</b> for me!". </p>
+        <img src="img/Emma.png" width="200" height="200" ></img>
+        <p>What do you think her energy bar looks like right now?</p>
+        <br><img src="img/anchoring_pics.png" width="630" height="70"></img>`},
+        { trial:  `<p>  Malik, a 6-year-old, is going to <b>spend an hour practicing violin</b> this afternoon. Malik thought, "Wow, that is going to be <b>so hard</b> for me!". </p>
         <img src="img/Malik.png" width="200" height="200" ></img>
         <p>What do you think his energy bar looks like right now?</p>
         <br><img src="img/anchoring_pics.png" width="630" height="70"></img>`},
-        { trial:  `<p>  Jaden is going to <b>spend an hour solving math problems</b> this afternoon. Jaden thought, "Wow, that is going to be <b>so easy</b> for me!". </p>
-        <img src="img/Jaden.png" width="200" height="200" ></img>
-        <p>What do you think his energy bar looks like right now?</p>
-        <br><img src="img/anchoring_pics.png" width="630" height="70"></img>`},
+
+
         { trial:  `<div><p> Please drag the slider all the way to the right, and click "Continue".</p>
           <br><br></div><img src="img/anchoring_pics.png" width="630" height="70"></img>` }],
         randomize_order: true
@@ -930,7 +978,7 @@ const timeline = [
             preload, 
             consent,
           intro,
-        intro_energybar,
+      /*  intro_energybar,
         label1,
         label2,
         label3,
@@ -941,7 +989,7 @@ const timeline = [
         energy_comp_check2,
         energy_feedback2,
         energy_comp_check3,
-        energy_feedback3,
+        energy_feedback3,*/
          intro_difficulty_bar,
           smiley1,
           smiley2,
