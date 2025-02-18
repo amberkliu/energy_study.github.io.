@@ -968,10 +968,19 @@ var debrief = {
         };
 
 
-const save_data = {
+/*const save_data = {
                 type: jsPsychPipe,
                 action: "save",
                 experiment_id: "r24Qgl3gQfsM",
+                filename: filename,
+                data_string: ()=>jsPsych.data.get().csv()
+              };*/
+
+
+const save_data = {
+                type: jsPsychPipe,
+                action: "save",
+                experiment_id: "5AyKgrSvH2UD",
                 filename: filename,
                 data_string: ()=>jsPsych.data.get().csv()
               };
