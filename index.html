@@ -970,7 +970,7 @@ var debrief = {
 const save_data = {
                 type: jsPsychPipe,
                 action: "save",
-                experiment_id: "5AyKgrSvH2UD",
+                experiment_id: "r24Qgl3gQfsM",
                 filename: filename,
                 data_string: ()=>jsPsych.data.get().csv()
               };
@@ -1006,8 +1006,7 @@ const timeline = [
           transition1,
           experiment_trials,
           debrief,
-          feedback_demographics,
-          save_data
+          feedback_demographics
         ];
       
 jsPsych.run(timeline);
