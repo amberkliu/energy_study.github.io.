@@ -31,7 +31,8 @@
     show_progress_bar: true,
     on_finish: function() {
               // window.location = "https://connect.cloudresearch.com/participant/project/B16BD2E52E/complete";
-      window.location = "https://connect.cloudresearch.com/participant/project/2CED66B84E/complete";
+      //window.location = "https://connect.cloudresearch.com/participant/project/2CED66B84E/complete";
+      jsPsych.data.displayData();
             },
 });
 
@@ -48,8 +49,13 @@ jsPsych.data.addProperties({
   condition: condition_assignment
 });
 
+var urlvar = jsPsych.data.urlVariables();
+jsPsych.data.addProperties({
+  url: urlvar
+});
+    
 /*experiment variables*/
-const mturk_pilot_mode = false
+const mturk_pilot_mode = true
 const data_collection = true
 
         /*capture info from mturk/connect, except in test mode*/
@@ -979,7 +985,7 @@ const timeline = [
             preload, 
             consent,
           intro,
-        intro_energybar,
+        /*intro_energybar,
         label1,
         label2,
         label3,
@@ -1004,7 +1010,7 @@ const timeline = [
           diffbar_comp_check3,
           diffbar_feedback3,
           transition1,
-          experiment_trials,
+          experiment_trials,*/
           debrief,
           feedback_demographics,
   save_data
