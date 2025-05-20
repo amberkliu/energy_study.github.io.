@@ -11,14 +11,14 @@
     /*border-radius: 16px;*/
   }
   
-  /* Track: webkit browsers */
+  /* Track: webkit browsers (Chrome, Safari) */
   .energy-slider input[type="range"]::-webkit-slider-runnable-track {
     height: 30px;
     background: #ffffff;
     /*border-radius: 16px;*/
   }
   
-  /* Track: Mozilla Firefox */
+  /* Track: (Firefox) */
   .energy-slider input[type="range"]::-moz-range-track {
     height: 15px;
     background: #ffffff;
@@ -51,11 +51,58 @@
     box-shadow: -407px 0 0 400px #6b5;
   }
 
+  .diff-slider input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none; 
+  }
+
 
   .original-slider input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none; 
   }
+
+/* ---- WebKit (Chrome, Safari) ---- */
+.original-slider input.jspsych-slider::-webkit-slider-runnable-track {
+
+  /* 1) only the gradients here */
+  background-image:
+    linear-gradient(#444, #444),
+    linear-gradient(#444, #444),
+    linear-gradient(#444, #444);
+
+  /* 2) five no-repeats */
+  background-repeat: no-repeat, no-repeat, no-repeat;
+
+  /* 3) five positions at 0%,25%,50%,75%,100% centered vertically */
+  background-position:
+    25%  50%,
+    50%  50%,
+    75%  50%;
+
+  /* 4) each line is 1px×10px */
+  background-size:
+    1px 10px,
+    1px 10px,
+    1px 10px;
+}
+
+/*Firefox*/
+.original-slider input.jspsych-slider::-moz-range-track {
+  background-image:
+    linear-gradient(#444, #444),
+    linear-gradient(#444, #444),
+    linear-gradient(#444, #444);
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-position:
+    25%  50%,
+    50%  50%,
+    75%  50%;
+  background-size:
+    1px 10px,
+    1px 10px,
+    1px 10px;
+}
 
 
   /*=============
