@@ -30,14 +30,15 @@
     override_safe_mode: true,
     show_progress_bar: true,
     on_finish: function() {
-           //  window.location = "https://connect.cloudresearch.com/participant/project/2CED66B84E/complete";
-              jsPsych.data.displayData();
+             window.location = "https://connect.cloudresearch.com/participant/project/2108E59B57/complete";
+            //  jsPsych.data.displayData();
             },
 });
 
 
 const subject_id = jsPsych.randomization.randomID(10);
 //const filename = `${subject_id}.csv`;
+
 /*experiment variables*/
 const mturk_pilot_mode = false
 
@@ -66,8 +67,8 @@ var preload = {
       auto_preload:true
     };
 
-var duration = '20 minutes';
-    var amount = '$5.00';
+var duration = '15 minutes';
+    var amount = '$3.75';
     var consent = {
         type: jsPsychHtmlButtonResponse,
         stimulus: '<p><b>Consent Form</b></p> <div style="text-align:left; background-color:lightblue; padding:2vw; max-width:80vw;">' +
@@ -111,6 +112,62 @@ var duration = '20 minutes';
         }
         }
     };
+
+const agents = [
+  {
+    name: 'Adam',
+    image: 'Adam.png',
+    subjectPronoun: 'he',
+    objectPronoun: 'him',
+    possessivePronoun: 'his'
+  },
+  {
+    name: 'Jessica',
+    image: 'Jessica.png',
+    subjectPronoun: 'she',
+    objectPronoun: 'her',
+    possessivePronoun: 'her'
+  }
+];
+
+const agent = agents[Math.floor(Math.random() * agents.length)];
+
+function cap(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+const baseActivities = [
+  { activity: "run a race", image: "running.jpg" },
+  { activity: "swim in the lake", image: "swimming.jpg" },
+  { activity: "jump up and down", image: "trampoline.jpg" },
+  { activity: "take a hike", image: "hiking.jpg" },
+  { activity: "climb up stairs", image: "stairs.jpg" },
+  { activity: "clean the house", image: "housecleaning.jpg" },
+  { activity: "do {{possessivePronoun}} homework", image: "homework.jpg" },
+  { activity: "learn the letters of the alphabet", image: "alphabets.jpg" },
+  { activity: "solve math problems", image: "number.jpg" },
+  { activity: "work on handwriting", image: "handwriting.jpg" },
+  { activity: "practice sounding out words from flashcards", image: "soundingwords.jpg" },
+  { activity: "practice violin", image: "violin.jpg" },
+  { activity: "take a nap", image: "nap.jpg" },
+  { activity: "listen to {{possessivePronoun}} favorite stories", image: "storyreading.jpg" },
+  { activity: "watch {{possessivePronoun}} favorite show on the couch", image: "watchingtv.jpg" },
+  { activity: "stretch", image: "stretch.jpg" },
+  { activity: "take a bath", image: "bathing.jpg" },
+  { activity: "sit down and draw pictures", image: "painting.jpg" }
+];
+
+function getActivitiesFor(agent) {
+  return baseActivities.map(item => ({
+    ...item,
+    activity: item.activity
+                  .replace(/{{subjectPronoun}}/g,   agent.subjectPronoun)
+                  .replace(/{{objectPronoun}}/g,    agent.objectPronoun)
+                  .replace(/{{possessivePronoun}}/g, agent.possessivePronoun)
+  }));
+}
+
+const activities = getActivitiesFor(agent);
 
 var opening = {
   type: jsPsychHtmlButtonResponse,
@@ -315,14 +372,14 @@ var transition_to_energy = {
     choices: ['Continue']
 }
 
-var Adamintro1 = {
+var Character_intro1 = {
   type: jsPsychHtmlSliderResponse,
   stimulus:
     `<div>
-        <p>This is our friend Adam. He is 6 years old. </p>
-        <img src="img/Adam.png" width="80" height="160" ></img>
+        <p>This is our friend ${agent.name}. ${cap(agent.subjectPronoun)} is 6 years old. </p>
+        <img src="img/${agent.image}" width="80" height="160" ></img>
       </div><br>
-        <p>Adam is feeling OK right now. His energy bar is <b>right in the middle</b>, like this: </p>
+        <p>${agent.name} is feeling <b>neutral</b> right now. ${cap(agent.possessivePronoun)} energy bar is <b>right in the middle</b>, like this: </p>
         <br><img src="img/anchoring_pics.png" width="630" height="70"></img>`,
     require_movement: false,
     slider_start:50,
@@ -332,13 +389,13 @@ var Adamintro1 = {
     choices: ['Continue']
 }
 
-var Adamintro2 = {
+var Character_intro2 = {
   type: jsPsychHtmlButtonResponse,
         stimulus:
-    `<p>There are a lot of things Adam can do - some of these make him less tired, some make him more tired, and some might not change how tired he is.</p>
+    `<p>There are a lot of things ${agent.name} can do - some of these make ${agent.objectPronoun} more tired, some make ${agent.objectPronoun} less tired, and some might not change how tired ${agent.subjectPronoun} is.</p>
     <div>
         <img src="img/collection.png" width="500" height="330"></img>
-     <p> Your job is to think about how different activities will affect his energy!</p>`,
+     <p> Your job is to think about how different activities will affect ${agent.possessivePronoun} energy!</p>`,
     choices: ['Continue']
 }
 
@@ -346,37 +403,18 @@ var transition_to_costreward = {
   type: jsPsychHtmlButtonResponse,
   stimulus:
     `<p> You have completed the first task - well done! </p>
-        <p><br>In the following task, you will rate how <b>difficult</b> and how <b>fun</b> it is for Adam to do each activity. 
+        <p><br>In the following task, you will rate how <b>difficult</b> and how <b>fun</b> it is for ${agent.name} to do each activity. 
           <b>These are two separate questions - be careful not to mix them up!.</b></p>
         <p><br>To proceed to the next task, please click "Continue". </p>`,
     choices: ['Continue']
 }
 
-const activities = [
-  { activity: "run a race", image: "running.jpg" },
-  { activity: "swim in the lake", image: "swimming.jpg" },
-  { activity: "jump up and down", image: "trampoline.jpg" },
-  { activity: "take a hike", image: "hiking.jpg" },
-  { activity: "climb up stairs", image: "stairs.jpg" },
-  { activity: "clean the house", image: "housecleaning.jpg" },
-  { activity: "do his homework", image: "homework.jpg" },
-  { activity: "learn the letters of the alphabet", image: "alphabets.jpg" },
-  { activity: "solve math problems", image: "number.jpg" },
-  { activity: "work on handwriting", image: "handwriting.jpg" },
-  { activity: "practice sounding out words from flashcards", image: "soundingwords.jpg" },
-  { activity: "practice violin", image: "violin.jpg" },
-  { activity: "take a nap", image: "nap.jpg" },
-  { activity: "listen to his favorite stories", image: "storyreading.jpg" },
-  { activity: "watch his favorite show on the couch", image: "watchingtv.jpg" },
-  { activity: "stretch", image: "stretch.jpg" },
-  { activity: "take a bath", image: "bathing.jpg" },
-  { activity: "sit down and draw pictures", image: "painting.jpg" }
-];
+//original activities
 
 function createEnergyTrialHTML(activity, image) {
   return `
     <div>
-        <p>If Adam goes off to <b>${activity}</b> for an hour, what do you think his energy bar will look like <b>afterwards</b>?</p>
+        <p>If ${agent.name} goes off to <b>${activity}</b> for an hour, what do you think ${agent.possessivePronoun} energy bar will look like <b>afterwards</b>?</p>
         <div><img src="img/${image}" width="200" height="200"></div>
         <br><img src="img/anchoring_pics.png" width="630" height="70">
       </div>
@@ -405,8 +443,8 @@ const energy_experiment = {
       stimulus: jsPsych.timelineVariable('trial'),
       require_movement: true,
       slider_start: 0,
-      min: -100,
-      max: 100,
+      min: -50,
+      max: 50,
       slider_width: 600,
       labels: ['Extremely tired', 'Somewhat tired', 'Neutral', 'Somewhat energetic', 'Extremely energetic'],
       prompt: "<p>(Drag the slider to indicate your answer)</p>",
@@ -428,12 +466,12 @@ const shuffledActivities = jsPsych.randomization.shuffle(activities);
   shuffledActivities.forEach(item => {
     const costHTML = `
       <div>
-        <p>How <b>hard</b> do you think it would be for Adam to <b>${item.activity}</b> for an hour?</p>
+        <p>How <b>hard</b> do you think it would be for ${agent.name} to <b>${item.activity}</b> for an hour?</p>
         <img src="img/${item.image}" width="200" height="200"><br><br>
       </div>`;
     const rewardHTML = `
       <div>
-        <p>How <b>fun</b> do you think it would be for Adam to <b>${item.activity}</b> for an hour?</p>
+        <p>How <b>fun</b> do you think it would be for ${agent.name} to <b>${item.activity}</b> for an hour?</p>
         <img src="img/${item.image}" width="200" height="200"><br><br>
       </div>`;
 
@@ -489,8 +527,8 @@ const costreward_experiment = {
       labels: jsPsych.timelineVariable('labels'),
       require_movement: true,
       slider_start: 0,
-      min: -100,
-      max: 100,
+      min: -50,
+      max: 50,
       slider_width: 600,
       prompt: '<p>(Drag the slider to indicate your answer)</p>',
       css_classes: ['original-slider'],
@@ -614,7 +652,7 @@ const timeline = [
             preload, 
             consent,
           opening,
-    /*      intro_energybar,
+          intro_energybar,
         label1,
         label2,
         label3,
@@ -625,10 +663,10 @@ const timeline = [
         energy_comp_check2,
         energy_feedback2,
         energy_comp_check3,
-        energy_feedback3,*/
+        energy_feedback3,
         transition_to_energy,
-        Adamintro1,
-        Adamintro2,
+        Character_intro1,
+        Character_intro2,
         energy_experiment,
        transition_to_costreward,
        costreward_experiment,
