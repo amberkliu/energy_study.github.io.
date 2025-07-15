@@ -30,7 +30,7 @@
     override_safe_mode: true,
     show_progress_bar: true,
     on_finish: function() {
-             window.location = "https://connect.cloudresearch.com/participant/project/2108E59B57/complete";
+             window.location = "https://connect.cloudresearch.com/participant/project/8A267BE384/complete";
             //  jsPsych.data.displayData();
             },
 });
@@ -67,8 +67,8 @@ var preload = {
       auto_preload:true
     };
 
-var duration = '15 minutes';
-    var amount = '$3.75';
+var duration = '10 minutes';
+    var amount = '$2.5';
     var consent = {
         type: jsPsychHtmlButtonResponse,
         stimulus: '<p><b>Consent Form</b></p> <div style="text-align:left; background-color:lightblue; padding:2vw; max-width:80vw;">' +
@@ -115,69 +115,129 @@ var duration = '15 minutes';
 
 const agents = [
   {
-    name: 'Adam',
-    image: 'Adam.png',
+    name: 'Emma',
+    image: 'Emma.png',
+    subjectPronoun: 'she',
+    objectPronoun: 'her',
+    possessivePronoun: 'her'
+  },
+  {
+    name: 'Nina',
+    image: 'Nina.png',
+    subjectPronoun: 'she',
+    objectPronoun: 'her',
+    possessivePronoun: 'her'
+  },
+  {
+    name: 'Mei',
+    image: 'Mei.png',
+    subjectPronoun: 'she',
+    objectPronoun: 'her',
+    possessivePronoun: 'her'
+  },
+  {
+    name: 'Sophie',
+    image: 'Sophie.png',
+    subjectPronoun: 'she',
+    objectPronoun: 'her',
+    possessivePronoun: 'her'
+  },
+  {
+    name: 'Akira',
+    image: 'Akira.png',
+    subjectPronoun: 'she',
+    objectPronoun: 'her',
+    possessivePronoun: 'her'
+  },
+  {
+    name: 'Jasmine',
+    image: 'Jasmine.png',
+    subjectPronoun: 'she',
+    objectPronoun: 'her',
+    possessivePronoun: 'her'
+  },
+  {
+    name: 'Malik',
+    image: 'Malik.png',
     subjectPronoun: 'he',
     objectPronoun: 'him',
     possessivePronoun: 'his'
   },
   {
-    name: 'Jessica',
-    image: 'Jessica.png',
-    subjectPronoun: 'she',
-    objectPronoun: 'her',
-    possessivePronoun: 'her'
-  }
+    name: 'Hiro',
+    image: 'Hiro.png',
+    subjectPronoun: 'he',
+    objectPronoun: 'him',
+    possessivePronoun: 'his'
+  },
+  {
+    name: 'Nick',
+    image: 'Nick.png',
+    subjectPronoun: 'he',
+    objectPronoun: 'him',
+    possessivePronoun: 'his'
+  },
+  {
+    name: 'Chen',
+    image: 'Chen.png',
+    subjectPronoun: 'he',
+    objectPronoun: 'him',
+    possessivePronoun: 'his'
+  },
+  {
+    name: 'Eric',
+    image: 'Eric.png',
+    subjectPronoun: 'he',
+    objectPronoun: 'him',
+    possessivePronoun: 'his'
+  },
+  {
+    name: 'Ethan',
+    image: 'Ethan.png',
+    subjectPronoun: 'he',
+    objectPronoun: 'him',
+    possessivePronoun: 'his'
+  },
 ];
 
-const agent = agents[Math.floor(Math.random() * agents.length)];
+//const agent = agents[Math.floor(Math.random() * agents.length)];
 
 function cap(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-const baseActivities = [
+const energylevel =[
+ {energy: "extremely energetic", image: "fullenergybar_wo_anchors.png"},
+ {energy: "extremely tired", image: "emptyenergybar_wo_anchors.png"},
+]
+
+const uttereddiff =[
+ {difficulty: "so hard", image: "fulldiffbar_wo_anchors.png"},
+ {difficulty: "so easy", image: "emptydiffbar_wo_anchors.png"},
+]
+
+const activities = [
   { activity: "run a race", image: "running.jpg" },
   { activity: "swim in the lake", image: "swimming.jpg" },
   { activity: "jump up and down", image: "trampoline.jpg" },
   { activity: "take a hike", image: "hiking.jpg" },
   { activity: "climb up stairs", image: "stairs.jpg" },
   { activity: "clean the house", image: "housecleaning.jpg" },
-  { activity: "do {{possessivePronoun}} homework", image: "homework.jpg" },
+  { activity: "do their homework", image: "homework.jpg" },
   { activity: "learn the letters of the alphabet", image: "alphabets.jpg" },
   { activity: "solve math problems", image: "number.jpg" },
   { activity: "work on handwriting", image: "handwriting.jpg" },
-  { activity: "practice sounding out words from flashcards", image: "soundingwords.jpg" },
-  { activity: "practice violin", image: "violin.jpg" },
-  { activity: "take a nap", image: "nap.jpg" },
-  { activity: "listen to {{possessivePronoun}} favorite stories", image: "storyreading.jpg" },
-  { activity: "watch {{possessivePronoun}} favorite show on the couch", image: "watchingtv.jpg" },
-  { activity: "stretch", image: "stretch.jpg" },
-  { activity: "take a bath", image: "bathing.jpg" },
-  { activity: "sit down and draw pictures", image: "painting.jpg" }
+  { activity: "practice sounding out words from flashcards", image: "soundingwords.jpg" }
 ];
-
-function getActivitiesFor(agent) {
-  return baseActivities.map(item => ({
-    ...item,
-    activity: item.activity
-                  .replace(/{{subjectPronoun}}/g,   agent.subjectPronoun)
-                  .replace(/{{objectPronoun}}/g,    agent.objectPronoun)
-                  .replace(/{{possessivePronoun}}/g, agent.possessivePronoun)
-  }));
-}
-
-const activities = getActivitiesFor(agent);
 
 var opening = {
   type: jsPsychHtmlButtonResponse,
   stimulus: `
         <p><b>Welcome to the study! </b><p>
-          <br><p> There are two tasks in this study. You will use sliders to indicate your answers in both tasks.</p>
-          <br><p>The study will start with a short tutorial on the slider, followed by the tasks. <p><br>`,
+          <br><p> In this study, you will use sliders to indicate your answers.</p>
+          <br><p>The study will start with a short tutorial on the sliders, followed by the task. <p><br>`,
   choices: ['Continue']
 }
-
 
 var intro_energybar = {
   type: jsPsychHtmlSliderResponse,
@@ -192,55 +252,24 @@ var intro_energybar = {
     css_classes: ['energy-slider'],
 }
 
-var label1 = {
-  type: jsPsychHtmlButtonResponse,
-  stimulus: `
-  <div><p>When someone is <b>extremely tired</b>, their energy bar looks like this: <p></div>
-        <br><img src="img/level1.png" width="605" height="115"></img>
-        <div><img src="img/energy_labels.png" width="670" height="28"></img></div>
-        <br><br>`,
-  choices: ['Continue']
-}
+const EnergyBarLevels = [
+  { level: 1, label: "extremely tired" },
+  { level: 2, label: "somewhat tired" },
+  { level: 3, label: "neutral" },
+  { level: 4, label: "somewhat energetic" },
+  { level: 5, label: "extremely energetic" }
+];
 
-var label2 = {
+const EnergyBarDemo = EnergyBarLevels.map(({ level, label }) => ({
   type: jsPsychHtmlButtonResponse,
   stimulus: `
-  <div><p>When someone is <b>somewhat tired</b>, their energy bar looks like this: <p></div>
-        <br><img src="img/level2.png" width="605" height="115"></img>
-        <div><img src="img/energy_labels.png" width="670" height="28"></img></div>
-        <br><br>`,
+    <div><p>When someone is <b>${label}</b>, their energy bar might look like this:</p></div>
+    <br><img src="img/level${level}.png" width="605" height="115">
+    <div><img src="img/energy_labels.png" width="670" height="28"></div>
+    <br><br>
+  `,
   choices: ['Continue']
-}
-
-var label3 = {
-  type: jsPsychHtmlButtonResponse,
-  stimulus: `
-  <div><p>When someone is feeling <b>neutral</b>, their energy bar looks like this: <p></div>
-        <br><img src="img/level3.png" width="605" height="115"></img>
-        <div><img src="img/energy_labels.png" width="670" height="28"></img></div>
-        <br><br>`,
-  choices: ['Continue']
-}
-
-var label4 = {
-  type: jsPsychHtmlButtonResponse,
-  stimulus: `
-  <div><p>When someone is <b>somewhat energetic</b>, their energy bar looks like this: <p></div>
-        <br><img src="img/level4.png" width="605" height="115"></img>
-        <div><img src="img/energy_labels.png" width="670" height="28"></img></div>
-        <br><br>`,
-  choices: ['Continue']
-}
-
-var label5 = {
-  type: jsPsychHtmlButtonResponse,
-  stimulus: `
-  <div><p>When someone is <b>extremely energetic</b>, their energy bar looks like this: <p></div>
-        <br><img src="img/level5.png" width="605" height="115"></img>
-        <div><img src="img/energy_labels.png" width="670" height="28"></img></div>
-        <br><br>`,
-  choices: ['Continue']
-}
+}));
 
 var energy_comp_check1 = {
   type: jsPsychHtmlSliderResponse,
@@ -361,92 +390,302 @@ var energy_feedback3 = {
   choices: ['Continue']
 }
 
-var transition_to_energy = {
+var intro_diffbar = {
+  type: jsPsychHtmlSliderResponse,
+  stimulus:`
+  <p>This is a difficulty bar. It represents how hard it is for a person to perform an activity.<p><br>
+    <div><img src="img/anchoring_smileys.png" width="640" height="64"></div>`,
+    require_movement: false,
+    slider_start:0,
+    slider_width: 600,
+    labels: ['Extremely tired','Somewhat tired','Neutral','Somewhat energetic','Extremely energetic'],
+    css_classes: ['original-slider'],
+}
+
+
+const DiffBarLevels = [
+  { level: 1, label: "extremely easy" },
+  { level: 2, label: "somewhat easy" },
+  { level: 3, label: "neutral" },
+  { level: 4, label: "somewhat hard" },
+  { level: 5, label: "extremely hard" }
+];
+
+const DiffBarDemo = DiffBarLevels.map(({ level, label }) => ({
+  type: jsPsychHtmlButtonResponse,
+  stimulus: `
+    <div><p>When it feels <b>${label}</b> to do something, the difficulty bar looks like this:</p></div>
+    <br><img src="img/smiley${level}.png" width="600" height="108">
+    <div><img src="img/diff_labels.png" width="680" height="20"></div>
+  `,
+  choices: ['Continue']
+}));
+
+var diffbar_comp_check1 = {
+  type: jsPsychHtmlSliderResponse,
+  stimulus: `<div>
+    <p>Let's make sure we understand how the difficulty bar works!</p>
+        </div><br>
+    <p> If it feels <b>really hard</b> to do something, what would the difficulty bar look like?</p>
+    <br>
+    <img src="img/anchoring_smileys.png" width="640" height="64"></img>`,
+    require_movement: true,
+    slider_start:0,
+    slider_width: 600,
+    labels: ['Extremely easy','Somewhat easy','Neutral','Somewhat hard','Extremely hard'],
+    prompt: "<p>(Drag the slider to indicate your answer)</p>",
+    css_classes: ['original-slider'],
+    data: {
+    task: 'diff-compcheck'
+  },
+    on_finish: function(data){
+    if (data.response > '75'){
+      data.correct = true;
+    } else {
+      data.correct = false; 
+    }}
+}
+
+var diffbar_feedback1 = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus: function(){
+      var last_trial_correct  = jsPsych.data.get().last(1).values()[0].correct;
+    if(last_trial_correct){
+      return `<p style="color: green;">Correct!</p>`; 
+    } else {
+      return `<p style="color: red;">Wrong.</p>
+      <p>If it feels <b>really hard</b> to do something, the slider should be near the right end of the bar.</p>
+      <br><img src="img/diffbar_right.png" width="600" height="90"></img>` 
+    }
+},
+  choices: ['Continue']
+}
+
+var diffbar_comp_check2 = {
+  type: jsPsychHtmlSliderResponse,
+  stimulus: `<div>
+    <p>Great!</p>
+        </div><br>
+    <p> If it feels <b>quite easy</b> to do something, what would the difficulty bar look like?</p>
+    <br>
+    <img src="img/anchoring_smileys.png" width="640" height="64"></img>`,
+    require_movement: true,
+    slider_start:0,
+    slider_width: 600,
+    labels: ['Extremely easy','Somewhat easy','Neutral','Somewhat hard','Extremely hard'],
+    prompt: "<p>(Drag the slider to indicate your answer)</p>",
+    css_classes: ['original-slider'],
+    data: {
+    task: 'diff-compcheck'
+  },
+    on_finish: function(data){
+    if (data.response < '50'){
+      data.correct = true;
+    } else {
+      data.correct = false; 
+    }}
+}
+
+var diffbar_feedback2 = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus: function(){
+      var last_trial_correct  = jsPsych.data.get().last(1).values()[0].correct;
+    if(last_trial_correct){
+      return `<p style="color: green;">Correct!</p>`; 
+    } else {
+      return `<p style="color: red;">Wrong.</p>
+      <p>If it feels <b>quite easy</b> to do something, the slider should be on the left side.</p>
+      <br><img src="img/diffbar_left.png" width="600" height="90"></img>` 
+    }
+},
+  choices: ['Continue']
+}
+
+var diffbar_comp_check3 = {
+  type: jsPsychHtmlSliderResponse,
+  stimulus: `<div>
+    <p>Great!</p>
+        </div><br>
+    <p> If it feels <b>neutral</b> to do something, what would the difficulty bar look like?</p>
+    <br>
+    <img src="img/anchoring_smileys.png" width="640" height="64"></img>`,
+    require_movement: true,
+    slider_start:0,
+    slider_width: 600,
+    labels: ['Extremely easy','Somewhat easy','Neutral','Somewhat hard','Extremely hard'],
+    prompt: "<p>(Drag the slider to indicate your answer)</p>",
+    css_classes: ['original-slider'],
+    data: {
+    task: 'diff-compcheck'
+  },
+    on_finish: function(data){
+    if (data.response < '60' && data.response > '40' ){
+      data.correct = true;
+    } else {
+      data.correct = false; 
+    }}
+}
+
+var diffbar_feedback3 = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus: function(){
+      var last_trial_correct  = jsPsych.data.get().last(1).values()[0].correct;
+    if(last_trial_correct){
+      return `<p style="color: green;">Correct!</p>`; 
+    } else {
+      return `<p style="color: red;">Wrong.</p>
+      <p>If it feels <b>neutral</b> to do something, the slider should be near the middle of the bar.</p>
+      <br><img src="img/diffbar_middle.png" width="600" height="90"></img>` 
+    }
+},
+  choices: ['Continue']
+}
+
+var transition_to_infer_difficulty = {
   type: jsPsychHtmlButtonResponse,
   stimulus:
     `<div>
         <p>You are all set to go! </p>
       </div><br>
-        <p>In the following task, you will use sliders to indicate a character's energy level in different scenarios. Please feel free to use the full range of the scale, and move the slider to whatever point feels most accurate. </p>
-        <p><br>To proceed to the first task, please click "Continue". </p>`,
+        <p>In the following task, you will use sliders to indicate how easy or hard different activities would feel for characters in different scenarios. Please feel free to use the full range of the scale, and move the slider along the scale that feels most accurate. </p>
+        <p><br>To proceed to the task, please click "Continue". </p>`,
     choices: ['Continue']
 }
 
-var Character_intro1 = {
-  type: jsPsychHtmlSliderResponse,
+var transition_to_infer_energy = {
+  type: jsPsychHtmlButtonResponse,
   stimulus:
     `<div>
-        <p>This is our friend ${agent.name}. ${cap(agent.subjectPronoun)} is 6 years old. </p>
-        <img src="img/${agent.image}" width="80" height="160" ></img>
+        <p>You are all set to go! </p>
       </div><br>
-        <p>${agent.name} is feeling <b>neutral</b> right now. ${cap(agent.possessivePronoun)} energy bar is <b>right in the middle</b>, like this: </p>
-        <br><img src="img/anchoring_pics.png" width="630" height="70"></img>`,
-    require_movement: false,
-    slider_start:50,
-    slider_width: 600,
-    labels: ['Extremely tired','Somewhat tired','Neutral','Somewhat energetic','Extremely energetic'],
-    css_classes: ['energy-slider'],
+        <p>In the following task, you will use sliders to indicate a character's energy level in different scenarios. Please feel free to use the full range of the scale, and move the slider along the scale that feels most accurate. </p>
+        <p><br>To proceed to the task, please click "Continue". </p>`,
     choices: ['Continue']
 }
 
-var Character_intro2 = {
-  type: jsPsychHtmlButtonResponse,
-        stimulus:
-    `<p>There are a lot of things ${agent.name} can do - some of these make ${agent.objectPronoun} more tired, some make ${agent.objectPronoun} less tired, and some might not change how tired ${agent.subjectPronoun} is.</p>
-    <div>
-        <img src="img/collection.png" width="500" height="330"></img>
-     <p> Your job is to think about how different activities will affect ${agent.possessivePronoun} energy!</p>`,
-    choices: ['Continue']
-}
+/* ======================== Infer Difficulty Trials ======================== */
 
-var transition_to_costreward = {
-  type: jsPsychHtmlButtonResponse,
-  stimulus:
-    `<p> You have completed the first task - well done! </p>
-        <p><br>In the following task, you will rate how <b>difficult</b> and how <b>fun</b> it is for ${agent.name} to do each activity. 
-          <b>These are two separate questions - be careful not to mix them up!.</b></p>
-        <p><br>To proceed to the next task, please click "Continue". </p>`,
-    choices: ['Continue']
-}
-
-//original activities
-
-function createEnergyTrialHTML(activity, image) {
+function createDifficultyTrialHTML(activity, image, agent, energylevel) {
   return `
     <div>
-        <p>If ${agent.name} goes off to <b>${activity}</b> for an hour, what do you think ${agent.possessivePronoun} energy bar will look like <b>afterwards</b>?</p>
-        <div><img src="img/${image}" width="200" height="200"></div>
-        <br><img src="img/anchoring_pics.png" width="630" height="70">
+      <div style="text-align: center;">
+        <p>${agent.name} is 6 years old. This is what ${agent.name}'s energy bar looks like right now - ${agent.subjectPronoun} is <b>${energylevel.energy}</b>.</p></div>
+        <img src="img/${energylevel.image}" width="400" height="70" ></img>
+        <br><p>${agent.name} is going to <b>${activity}</b> for an hour. How <b>hard</b> do you think that would be for ${agent.name}?</p><br>
+        
+        <div style="position: relative; display: inline-block;">
+      <img src="img/${agent.image}" width="90" height="150">
+      <div style="position: absolute; top: -40px; left: 360px;">
+        <img src="img/bubble.png" width="140" height="140" style="position: absolute; top: 0; left: 0;z-index: 2;">
+        <img src="img/${image}" width="90" height="80" 
+             style="position: absolute; top: 18px; left: 24px; border: none;z-index: 1;"></div>
+
+        <br><img src="img/anchoring_smileys.png" width="640" height="64"></img>
       </div>
   `;
 }
 
-const energy_trials= activities.map(item => ({
-  trial: createEnergyTrialHTML(item.activity, item.image),
-  activity: item.activity,
-  image: item.image
-}));
+const shuffledAgents = jsPsych.randomization.shuffle(agents);
 
-energy_trials.push(
-  { trial: `<div><p>Please drag the slider all the way to the right, and click "Continue".</p><br><img src="img/anchoring_pics.png" width="630" height="70"></img></div>`,
-  activity: "comp_right",
+const infer_difficulty_trials = activities.map((item, index) => {
+  const agent = shuffledAgents[index % shuffledAgents.length];  // first non-repeat sampling, If more activities than agents, recycle
+  const energy = jsPsych.randomization.sampleWithoutReplacement(energylevel, 1)[0];
+  return {
+    trial: createDifficultyTrialHTML(item.activity, item.image, agent, energy),
+    activity: item.activity,
+    image: item.image,
+    agent: agent.name,
+    energylevel: energy.energy
+  };
+});
+
+infer_difficulty_trials.push(
+  { trial: `<div><p>Please drag the slider all the way to the right, and click "Continue".</p><br><img src="img/anchoring_smileys.png" width="640" height="64"></img></div>`,
+  activity: "att_right",
     image: "none"},
-  { trial: `<div><p>Please drag the slider all the way to the left, and click "Continue".</p><br><img src="img/anchoring_pics.png" width="630" height="70"></img></div>`,
-  activity: "comp_right",
+  { trial: `<div><p>Please drag the slider to the middle, and click "Continue".</p><br><img src="img/anchoring_smileys.png" width="640" height="64"></img></div>`,
+  activity: "att_middle",
     image: "none"}
 );
 
-const energy_experiment = {
+const infer_difficulty = {
   timeline: [
     {
       type: jsPsychHtmlSliderResponse,
       stimulus: jsPsych.timelineVariable('trial'),
       require_movement: true,
       slider_start: 0,
-      min: -50,
-      max: 50,
+      min: 0,
+      max: 100,
       slider_width: 600,
-      labels: ['Extremely tired', 'Somewhat tired', 'Neutral', 'Somewhat energetic', 'Extremely energetic'],
+      labels: ['Extremely easy','Somewhat easy','Neutral','Somewhat hard','Extremely hard'],
+      prompt: "<p>(Drag the slider to indicate your answer)</p>",
+      css_classes: ['original-slider'],
+      data: {
+        task: 'diff-rating',
+        activity: jsPsych.timelineVariable('activity'),
+        image: jsPsych.timelineVariable('image')
+      }
+    }
+  ],
+  timeline_variables: jsPsych.randomization.shuffle(infer_difficulty_trials), 
+  randomize_order: false //already shuffled
+};
+
+/* ======================== Inferr Energy Trials ======================== */
+function createEnergyTrialHTML(activity, image, agent, uttereddiff) {
+  return `
+    <div>
+      <div style="text-align: center;">
+        <p>${agent.name} is 6 years old. ${cap(agent.subjectPronoun)} is going to <b>${activity} for an hour</b>.</p><br>
+        
+        <div style="position: relative; display: inline-block;">
+          <img src="img/${agent.image}" width="90" height="150">
+          <div style="position: absolute; top: -30px; left: 360px;">
+            <img src="img/bubble.png" width="140" height="140" style="position: absolute; top: 0; left: 0;z-index: 2;">
+            <img src="img/${image}" width="90" height="80" style="position: absolute; top: 18px; left: 24px; border: none;z-index: 1;"></div>
+
+        <p>${agent.name} thought, "Wow, that is going to be <b>${uttereddiff.difficulty}</b> for me!".</p>
+        <img src="img/${uttereddiff.image}" width="400" height="70" ></img>
+        <p>What do you think ${agent.possessivePronoun} energy bar looks like right now?</p>
+
+        <br><img src="img/anchoring_pics.png" width="630" height="70"></img>
+      </div>
+  `;
+}
+
+const infer_energy_trials = activities.map((item, index) => {
+  const agent = shuffledAgents[index % shuffledAgents.length];  // first non-repeat sampling, If more activities than agents, recycle
+  const difficulty = jsPsych.randomization.sampleWithoutReplacement(uttereddiff, 1)[0];
+  return {
+    trial: createEnergyTrialHTML(item.activity, item.image, agent, difficulty),
+    activity: item.activity,
+    image: item.image,
+    agent: agent.name,
+    uttereddiff: difficulty.difficulty
+  };
+});
+
+infer_energy_trials.push(
+  { trial: `<div><p>Please drag the slider all the way to the right, and click "Continue".</p><br><img src="img/anchoring_pics.png" width="630" height="70"></img></div>`,
+  activity: "att_right",
+    image: "none"},
+  { trial: `<div><p>Please drag the slider to the middle, and click "Continue".</p><br><img src="img/anchoring_pics.png" width="630" height="70"></img></div>`,
+  activity: "att_middle",
+    image: "none"}
+);
+
+const infer_energy = {
+  timeline: [
+    {
+      type: jsPsychHtmlSliderResponse,
+      stimulus: jsPsych.timelineVariable('trial'),
+      require_movement: true,
+      slider_start: 0,
+      min: 0,
+      max: 100,
+      slider_width: 600,
+      labels: ['Extremely tired','Somewhat tired','Neutral','Somewhat energetic','Extremely energetic'],
       prompt: "<p>(Drag the slider to indicate your answer)</p>",
       css_classes: ['energy-slider'],
       data: {
@@ -456,101 +695,19 @@ const energy_experiment = {
       }
     }
   ],
-  timeline_variables: jsPsych.randomization.shuffle(energy_trials), 
+  timeline_variables: jsPsych.randomization.shuffle(infer_energy_trials), 
   randomize_order: false //already shuffled
 };
 
 
-const shuffledActivities = jsPsych.randomization.shuffle(activities);
-  const costreward_trials = [];
-  shuffledActivities.forEach(item => {
-    const costHTML = `
-      <div>
-        <p>How <b>hard</b> do you think it would be for ${agent.name} to <b>${item.activity}</b> for an hour?</p>
-        <img src="img/${item.image}" width="200" height="200"><br><br>
-      </div>`;
-    const rewardHTML = `
-      <div>
-        <p>How <b>fun</b> do you think it would be for ${agent.name} to <b>${item.activity}</b> for an hour?</p>
-        <img src="img/${item.image}" width="200" height="200"><br><br>
-      </div>`;
-
- // Two trial objects (cost and reward)
- const trials = [
-      {
-        stimulus: costHTML,
-        labels: ['Extremely easy','Somewhat easy','Neutral','Somewhat hard','Extremely hard'],
-        question_type: 'cost',
-        activity: item.activity
-      },
-      {
-        stimulus: rewardHTML,
-        labels: ['Extremely boring','Somewhat boring','Neutral','Somewhat fun','Extremely fun'],
-        question_type: 'reward',
-        activity: item.activity
-      }
-    ];
-
-// shuffle the two and push them in order
-    jsPsych.randomization.shuffle(trials)
-      .forEach(t => costreward_trials.push(t));
-  });
-
-  const costreward_attchecks = [
-  {
-    stimulus: `<div><p>Please drag the slider all the way to the right, and click "Continue".</p></div>`,
-    labels:  ['Extremely boring','Somewhat boring','Neutral','Somewhat boring','Extremely fun'],   
-    question_type: "reward",
-    activity: "comp_right",
-    image: "none"
-  },
-  {
-    stimulus: `<div><p>Please drag the slider all the way to the left, and click "Continue".</p></div>`,
-    labels:  ['Extremely easy','Somewhat easy','Neutral','Somewhat hard','Extremely hard'],    
-    question_type: "cost",
-    activity: "comp_left",
-    image: "none"
-  }
-];
-
-costreward_attchecks.forEach(trial => {
-  // pick a random insertion index
-  const idx = Math.floor(Math.random() * (costreward_trials.length + 1));
-  costreward_trials.splice(idx, 0, trial);
-});
-
-
-const costreward_experiment = {
-    timeline: [{
-      type: jsPsychHtmlSliderResponse,
-      stimulus: jsPsych.timelineVariable('stimulus'),
-      labels: jsPsych.timelineVariable('labels'),
-      require_movement: true,
-      slider_start: 50,
-      min: 0,
-      max: 100,
-      slider_width: 600,
-      prompt: '<p>(Drag the slider to indicate your answer)</p>',
-      css_classes: ['original-slider'],
-      data: {
-        task: 'costreward',
-        question_type: jsPsych.timelineVariable('question_type'),
-        activity: jsPsych.timelineVariable('activity')
-      }
-    }],
-    timeline_variables: costreward_trials,
-    randomize_order: false  // pair order already shuffled
-  };
-
-
-// **OUTRO**
+/* =========================== OUTRO =========================== */
 var debrief = {
         type: jsPsychInstructions,
         pages: [
             '<p style="font-size: 20px;"><strong>Debrief</strong></p>' +
             '<p><br>Thank you so much for helping us with this study!</p>' +
-            '<br><p style = "max-width:800px;">In this study, we asked you questions about a character\'s energy change following different activities, and how fun and difficult the activities are. ' +
-            'The goal was to study your intuitions about different dimensions of action cost and reward.' +
+            '<br><p style = "max-width:800px;">In this study, we asked you to infer the difficulty of activities for characters at different energy levels. ' +
+            'The goal was to study people\'s intuitions about how other\'s energy level can affect the subjective cost of actions, such that when someone is extremely tired (vs. energertic), they\'ll likely find activities harder (vs. easier).' +
             '</p><br><p style = "max-width:800px;">Next up, we have a few final questions about yourself and your experience today.</p>'
         ],
         show_clickable_nav: true,
@@ -635,10 +792,10 @@ var debrief = {
             }
         };
 
-const save_data = {
+        const save_data = {
                 type: jsPsychPipe,
                 action: "save",
-                experiment_id: "IGIGX8aIZUPF",
+                experiment_id: "EW46OHMECrie",
                 filename: filename,
                 data_string: ()=>jsPsych.data.get().csv()
               };
@@ -653,23 +810,24 @@ const timeline = [
             consent,
           opening,
           intro_energybar,
-        label1,
-        label2,
-        label3,
-        label4,
-        label5,
-        energy_comp_check1,
+          EnergyBarDemo,
+          energy_comp_check1,
         energy_feedback1,
         energy_comp_check2,
         energy_feedback2,
         energy_comp_check3,
         energy_feedback3,
-        transition_to_energy,
-        Character_intro1,
-        Character_intro2,
-        energy_experiment,
-       transition_to_costreward,
-       costreward_experiment,
+        intro_diffbar,
+          DiffBarDemo,
+          diffbar_comp_check1,
+          diffbar_feedback1,
+          diffbar_comp_check2,
+          diffbar_feedback2,
+          diffbar_comp_check3,
+          diffbar_feedback3,
+          transition_to_infer_difficulty,
+
+          infer_difficulty,
           debrief,
           feedback_demographics,
           save_data
