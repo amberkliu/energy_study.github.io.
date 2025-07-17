@@ -67,8 +67,8 @@ var preload = {
       auto_preload:true
     };
 
-var duration = '10 minutes';
-    var amount = '$2.5';
+var duration = '5 minutes';
+    var amount = '$1.25';
     var consent = {
         type: jsPsychHtmlButtonResponse,
         stimulus: '<p><b>Consent Form</b></p> <div style="text-align:left; background-color:lightblue; padding:2vw; max-width:80vw;">' +
@@ -399,7 +399,7 @@ var intro_diffbar = {
     slider_start:0,
     slider_width: 600,
     labels: ['Extremely tired','Somewhat tired','Neutral','Somewhat energetic','Extremely energetic'],
-    css_classes: ['original-slider'],
+    css_classes: ['diff-slider'],
 }
 
 
@@ -434,7 +434,7 @@ var diffbar_comp_check1 = {
     slider_width: 600,
     labels: ['Extremely easy','Somewhat easy','Neutral','Somewhat hard','Extremely hard'],
     prompt: "<p>(Drag the slider to indicate your answer)</p>",
-    css_classes: ['original-slider'],
+    css_classes: ['diff-slider'],
     data: {
     task: 'diff-compcheck'
   },
@@ -474,7 +474,7 @@ var diffbar_comp_check2 = {
     slider_width: 600,
     labels: ['Extremely easy','Somewhat easy','Neutral','Somewhat hard','Extremely hard'],
     prompt: "<p>(Drag the slider to indicate your answer)</p>",
-    css_classes: ['original-slider'],
+    css_classes: ['diff-slider'],
     data: {
     task: 'diff-compcheck'
   },
@@ -514,7 +514,7 @@ var diffbar_comp_check3 = {
     slider_width: 600,
     labels: ['Extremely easy','Somewhat easy','Neutral','Somewhat hard','Extremely hard'],
     prompt: "<p>(Drag the slider to indicate your answer)</p>",
-    css_classes: ['original-slider'],
+    css_classes: ['diff-slider'],
     data: {
     task: 'diff-compcheck'
   },
@@ -571,11 +571,11 @@ function createDifficultyTrialHTML(activity, image, agent, energylevel) {
       <div style="text-align: center;">
         <p>${agent.name} is 6 years old. This is what ${agent.name}'s energy bar looks like right now - ${agent.subjectPronoun} is <b>${energylevel.energy}</b>.</p></div>
         <img src="img/${energylevel.image}" width="400" height="70" ></img>
-        <br><p>${agent.name} is going to <b>${activity}</b> for an hour. How <b>hard</b> do you think that would be for ${agent.name}?</p><br>
+        <br><p>${agent.name} is going to <b>${activity} for an hour</b>. How <b>hard</b> do you think that would be for ${agent.name}?</p><br>
         
         <div style="position: relative; display: inline-block;">
       <img src="img/${agent.image}" width="90" height="150">
-      <div style="position: absolute; top: -40px; left: 360px;">
+      <div style="position: absolute; top: -30px; left: 360px;">
         <img src="img/bubble.png" width="140" height="140" style="position: absolute; top: 0; left: 0;z-index: 2;">
         <img src="img/${image}" width="90" height="80" 
              style="position: absolute; top: 18px; left: 24px; border: none;z-index: 1;"></div>
@@ -620,7 +620,7 @@ const infer_difficulty = {
       slider_width: 600,
       labels: ['Extremely easy','Somewhat easy','Neutral','Somewhat hard','Extremely hard'],
       prompt: "<p>(Drag the slider to indicate your answer)</p>",
-      css_classes: ['original-slider'],
+      css_classes: ['diff-slider'],
       data: {
         task: 'diff-rating',
         activity: jsPsych.timelineVariable('activity'),
@@ -632,7 +632,7 @@ const infer_difficulty = {
   randomize_order: false //already shuffled
 };
 
-/* ======================== Inferr Energy Trials ======================== */
+/* ======================== Infer Energy Trials ======================== */
 function createEnergyTrialHTML(activity, image, agent, uttereddiff) {
   return `
     <div>
@@ -706,8 +706,8 @@ var debrief = {
         pages: [
             '<p style="font-size: 20px;"><strong>Debrief</strong></p>' +
             '<p><br>Thank you so much for helping us with this study!</p>' +
-            '<br><p style = "max-width:800px;">In this study, we asked you to infer the difficulty of activities for characters at different energy levels. ' +
-            'The goal was to study people\'s intuitions about how other\'s energy level can affect the subjective cost of actions, such that when someone is extremely tired (vs. energertic), they\'ll likely find activities harder (vs. easier).' +
+            '<br><p style = "max-width:800px;">In this study, we asked you to infer how much energy characters had based on how difficult or easy they said different activities were. ' +
+            'The goal was to study people\'s inferences about others\' energy level depending on their expressed cost of actions, such that when someone thinks it is extremely hard (vs. easy) to do an activity, they\'ll likely have lower energy (vs. more energy).' +
             '</p><br><p style = "max-width:800px;">Next up, we have a few final questions about yourself and your experience today.</p>'
         ],
         show_clickable_nav: true,
@@ -795,7 +795,7 @@ var debrief = {
         const save_data = {
                 type: jsPsychPipe,
                 action: "save",
-                experiment_id: "EW46OHMECrie",
+                experiment_id: "YyZQtmTSIoaM",
                 filename: filename,
                 data_string: ()=>jsPsych.data.get().csv()
               };
@@ -825,9 +825,9 @@ const timeline = [
           diffbar_feedback2,
           diffbar_comp_check3,
           diffbar_feedback3,
-          transition_to_infer_difficulty,
+          transition_to_infer_energy,
 
-          infer_difficulty,
+          infer_energy,
           debrief,
           feedback_demographics,
           save_data
