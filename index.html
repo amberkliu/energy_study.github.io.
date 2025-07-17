@@ -157,6 +157,27 @@ const agents = [
     possessivePronoun: 'her'
   },
   {
+    name: 'Maya',
+    image: 'Maya.png',
+    subjectPronoun: 'she',
+    objectPronoun: 'her',
+    possessivePronoun: 'her'
+  },
+  {
+    name: 'Olivia',
+    image: 'Olivia.png',
+    subjectPronoun: 'she',
+    objectPronoun: 'her',
+    possessivePronoun: 'her'
+  },
+  {
+    name: 'Michelle',
+    image: 'Michelle.png',
+    subjectPronoun: 'she',
+    objectPronoun: 'her',
+    possessivePronoun: 'her'
+  },
+  {
     name: 'Malik',
     image: 'Malik.png',
     subjectPronoun: 'he',
@@ -198,6 +219,27 @@ const agents = [
     objectPronoun: 'him',
     possessivePronoun: 'his'
   },
+  {
+    name: 'Jack',
+    image: 'Jack.png',
+    subjectPronoun: 'he',
+    objectPronoun: 'him',
+    possessivePronoun: 'his'
+  },
+  {
+    name: 'Jaden',
+    image: 'Jaden.png',
+    subjectPronoun: 'he',
+    objectPronoun: 'him',
+    possessivePronoun: 'his'
+  },
+  {
+    name: 'Han',
+    image: 'Han.png',
+    subjectPronoun: 'he',
+    objectPronoun: 'him',
+    possessivePronoun: 'his'
+  },
 ];
 
 //const agent = agents[Math.floor(Math.random() * agents.length)];
@@ -223,11 +265,21 @@ const activities = [
   { activity: "take a hike", image: "hiking.jpg" },
   { activity: "climb up stairs", image: "stairs.jpg" },
   { activity: "clean the house", image: "housecleaning.jpg" },
+
   { activity: "do their homework", image: "homework.jpg" },
   { activity: "learn the letters of the alphabet", image: "alphabets.jpg" },
   { activity: "solve math problems", image: "number.jpg" },
   { activity: "work on handwriting", image: "handwriting.jpg" },
-  { activity: "practice sounding out words from flashcards", image: "soundingwords.jpg" }
+  { activity: "practice sounding out words from flashcards", image: "soundingwords.jpg" },
+  { activity: "practice violin", image: "violin.jpg" },
+
+  { activity: "take a nap", image: "nap.jpg" },
+  { activity: "listen to their favorite stories", image: "storyreading.jpg" },
+  { activity: "watch their favorite show on the couch", image: "watchingtv.jpg" },
+  { activity: "stretch", image: "stretch.jpg" },
+  { activity: "take a bath", image: "bathing.jpg" },
+  { activity: "sit down and draw pictures", image: "painting.jpg" },
+
 ];
 
 var opening = {
@@ -701,13 +753,26 @@ const infer_energy = {
 
 
 /* =========================== OUTRO =========================== */
-var debrief = {
+var debrief_inferenergy = {
         type: jsPsychInstructions,
         pages: [
             '<p style="font-size: 20px;"><strong>Debrief</strong></p>' +
             '<p><br>Thank you so much for helping us with this study!</p>' +
             '<br><p style = "max-width:800px;">In this study, we asked you to infer how much energy characters had based on how difficult or easy they said different activities were. ' +
             'The goal was to study people\'s inferences about others\' energy level depending on their expressed cost of actions, such that when someone thinks it is extremely hard (vs. easy) to do an activity, they\'ll likely have lower energy (vs. more energy).' +
+            '</p><br><p style = "max-width:800px;">Next up, we have a few final questions about yourself and your experience today.</p>'
+        ],
+        show_clickable_nav: true,
+        button_label_next: 'Next'
+        };
+  
+var debrief_inferdifficulty = {
+        type: jsPsychInstructions,
+        pages: [
+            '<p style="font-size: 20px;"><strong>Debrief</strong></p>' +
+            '<p><br>Thank you so much for helping us with this study!</p>' +
+            '<br><p style = "max-width:800px;">In this study, we asked you to infer the difficulty of activities for characters at different energy levels. ' +
+            'The goal was to study people\'s intuitions about how other\'s energy level can affect the subjective cost of actions, such that when someone is extremely tired (vs. energertic), they\'ll likely find activities harder (vs. easier).' +
             '</p><br><p style = "max-width:800px;">Next up, we have a few final questions about yourself and your experience today.</p>'
         ],
         show_clickable_nav: true,
@@ -792,13 +857,23 @@ var debrief = {
             }
         };
 
-        const save_data = {
+        const save_data_difficulty = {
+          type: jsPsychPipe,
+  action: "save",
+  experiment_id: "gVMzvpnFKLdS",
+  filename: filename,
+  data_string: ()=>jsPsych.data.get().csv()
+              };
+
+        const save_data_energy = {
                 type: jsPsychPipe,
                 action: "save",
                 experiment_id: "YyZQtmTSIoaM",
                 filename: filename,
                 data_string: ()=>jsPsych.data.get().csv()
               };
+
+        
 
 var urlvar = jsPsych.data.urlVariables();
 jsPsych.data.addProperties({
@@ -825,12 +900,16 @@ const timeline = [
           diffbar_feedback2,
           diffbar_comp_check3,
           diffbar_feedback3,
-          transition_to_infer_energy,
-
-          infer_energy,
-          debrief,
+          
+          transition_to_infer_energy, 
+          //transition_to_infer_difficulty,
+          infer_energy, 
+          //infer_difficulty,
+          debrief_inferenergy, 
+          //debrief_inferdifficulty,
           feedback_demographics,
-          save_data
+          save_data_energy
+          //save_data_difficulty,
         ];
 
 jsPsych.run(timeline);
